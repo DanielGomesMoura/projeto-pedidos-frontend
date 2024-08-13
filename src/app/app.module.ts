@@ -24,11 +24,15 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
+import { NavComponent } from './component/nav/nav.component';
+import { HeaderComponent } from './component/header/header.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
