@@ -1,17 +1,17 @@
 <div class="container mat-elevation-z8">
-    <form class="form">
+    <form [formGroup]="clienteForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Cliente' : 'Cadastrar Cliente' }}</h1>
 
             <mat-form-field appearance="legacy" class="fullWidth">
             <mat-label>Nome</mat-label>
-            <input [(ngModel)]="cliente.nome" name="nome" [formControl]="nome" required matInput placeholder="Digite seu nome..."
+            <input name="nome" formControlName="nome" required matInput placeholder="Digite seu nome..."
             maxlength="50">
             <mat-icon matSuffix>sentiment_very_satisfied  </mat-icon>
           </mat-form-field>
 
           <mat-form-field appearance="legacy" class="fullWidth">
             <mat-label>E-mail</mat-label>
-            <input [(ngModel)]="cliente.email" name="email" [formControl]="email" required matInput placeholder="ex..: nome@email.com">
+            <input name="email" formControlName="email" required matInput placeholder="ex..: nome@email.com">
             <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
 

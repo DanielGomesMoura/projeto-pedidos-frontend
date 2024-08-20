@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../../models/cliente';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -12,16 +12,9 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class ClienteCreateComponent implements OnInit {
 
-  cliente: Cliente = {
-    id: '',
-    nome: '',
-    email: ''
-  }
+  clienteForm: FormGroup;
 
   isEditMode: boolean = false;
-
-  nome: FormControl =  new FormControl(null, Validators.minLength(3));
-  email: FormControl = new FormControl(null, Validators.email);
 
   constructor(private service: ClienteService,
               private toast: ToastrService, 
@@ -29,22 +22,33 @@ export class ClienteCreateComponent implements OnInit {
               private activatedRout: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // Inicializando o FormGroup com os FormControl correspondentes
+    this.clienteForm = new FormGroup({
+      id: new FormControl(null),
+      nome: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      email: new FormControl(null, [Validators.required, Validators.email])
+    });
+
+    // Verifica se está no modo de edição
     const id = this.activatedRout.snapshot.paramMap.get('id');
-    if(id){
-      this.cliente.id = id
-      this.findById();
+    if (id) {
+      this.clienteForm.patchValue({id});
+      this.findById(id);
       this.isEditMode = true;
     }
   }
 
-  findById(): void{
-    this.service.findById(this.cliente.id).subscribe(resposta =>{
-      this.cliente = resposta
+  findById(id: string): void{
+    this.service.findById(id).subscribe(resposta =>{
+      this.clienteForm.patchValue({
+        nome: resposta.nome,
+        email: resposta.email
+      });
     })
   }
 
   save(): void {
-    if (this.cliente.id) {
+    if (this.isEditMode) {
       this.update();
     } else {
       this.create();
@@ -52,7 +56,7 @@ export class ClienteCreateComponent implements OnInit {
   }
 
   update(): void {
-    this.service.update(this.cliente).subscribe(() => {
+    this.service.update(this.clienteForm.value).subscribe(() => {
       this.toast.success('Cliente atualizado com sucesso','Update');
       this.router.navigate(['clientes']);
     },ex => {
@@ -67,7 +71,7 @@ export class ClienteCreateComponent implements OnInit {
   }
 
   create(): void {
-    this.service.create(this.cliente).subscribe(resposta => {
+    this.service.create(this.clienteForm.value).subscribe(resposta => {
       this.toast.success('Cliente cadastrado com sucesso');
       this.router.navigate(['clientes']);
     },ex => {
@@ -82,6 +86,6 @@ export class ClienteCreateComponent implements OnInit {
   }
   
   validaCampos(): boolean { 
-    return this.nome.valid && this.email.valid
+    return this.clienteForm.valid;
   }
 }

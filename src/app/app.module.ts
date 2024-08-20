@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CurrencyPipe } from '@angular/common';
+
 
 // PARA TRABALHAR COM FORMULARIOS NO ANGULAR 12
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -25,6 +27,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
+
+//Componentes do Projeto
 import { NavComponent } from './component/nav/nav.component';
 import { HeaderComponent } from './component/header/header.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -33,6 +37,7 @@ import { ClienteListComponent } from './component/cliente/cliente-list/cliente-l
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -72,8 +77,9 @@ import { ProdutoCreateComponent } from './component/produto/produto-create/produ
       closeButton: true,
       progressBar: true
     }),
+    NgxMaskModule.forRoot()
   ],
-  providers: [],
+  providers: [CurrencyPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
 
 @Component({
@@ -12,20 +11,9 @@ import { ProdutoService } from 'src/app/services/produto.service';
 })
 export class ProdutoCreateComponent implements OnInit {
 
-  produto: Produto = {
-    id: '',
-    descricao: '',
-    unidade: '',
-    valor_custo: 0,
-    valor_venda: 0,
-  }
+  produtoForm: FormGroup;
 
   isEditMode: boolean = false;
-
-  descricao: FormControl =  new FormControl(null, Validators.minLength(3));
-  unidade: FormControl = new FormControl(null, Validators.required);
-  valor_custo: FormControl = new FormControl(null, Validators.required);
-  valor_venda: FormControl = new FormControl(null, Validators.required);
 
   constructor(private service: ProdutoService,
               private toast: ToastrService, 
@@ -33,22 +21,35 @@ export class ProdutoCreateComponent implements OnInit {
               private activatedRout: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.produtoForm = new FormGroup({
+      id:          new FormControl(null),
+      descricao:   new FormControl(null,Validators.minLength(3)),
+      unidade:     new FormControl(null, Validators.required),
+      valor_custo: new FormControl(null, Validators.required),
+      valor_venda: new FormControl(null, Validators.required),
+    })
+
     const id = this.activatedRout.snapshot.paramMap.get('id');
     if(id){
-      this.produto.id = id
-      this.findById();
+      this.produtoForm.patchValue({id});
+      this.findById(id);
       this.isEditMode = true;
     }
   }
 
-  findById(): void{
-    this.service.findById(this.produto.id).subscribe(resposta =>{
-      this.produto = resposta
+  findById(id: string): void{
+    this.service.findById(id).subscribe(resposta =>{
+      this.produtoForm.patchValue({
+        descricao: resposta.descricao,
+        unidade: resposta.unidade,
+        valor_custo: resposta.valor_custo,
+        valor_venda: resposta.valor_venda
+      });
     })
   }
 
   save(): void {
-    if (this.produto.id) {
+    if (this.isEditMode) {
       this.update();
     } else {
       this.create();
@@ -56,7 +57,7 @@ export class ProdutoCreateComponent implements OnInit {
   }
 
   update(): void {
-    this.service.update(this.produto).subscribe(() => {
+    this.service.update(this.produtoForm.value).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
       this.router.navigate(['produtos']);
     },ex => {
@@ -71,7 +72,7 @@ export class ProdutoCreateComponent implements OnInit {
   }
 
   create(): void {
-    this.service.create(this.produto).subscribe(resposta => {
+    this.service.create(this.produtoForm.value).subscribe(resposta => {
       this.toast.success('Produto cadastrado com sucesso');
       this.router.navigate(['produtos']);
     },ex => {
@@ -86,6 +87,6 @@ export class ProdutoCreateComponent implements OnInit {
   }
   
   validaCampos(): boolean { 
-    return this.descricao.valid && this.unidade.valid && this.valor_custo.valid && this.valor_venda.valid
+    return this.produtoForm.valid
   }
 }

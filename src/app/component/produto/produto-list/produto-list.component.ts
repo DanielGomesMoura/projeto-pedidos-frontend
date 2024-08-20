@@ -19,7 +19,7 @@ export class ProdutoListComponent implements OnInit {
     id: '',
     descricao: '',
     unidade: '',
-    valor_custo: 0,
+    valor_custo: '',
     valor_venda: 0,
   }
 
