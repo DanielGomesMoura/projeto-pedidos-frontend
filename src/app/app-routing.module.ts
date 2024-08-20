@@ -5,6 +5,7 @@ import { HomeComponent } from './component/home/home.component';
 import { ClienteListComponent } from './component/cliente/cliente-list/cliente-list.component';
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
+import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,8 @@ const routes: Routes = [
       {path: 'clientes/update/:id', component: ClienteCreateComponent},
 
       {path: 'produtos',            component:  ProdutoListComponent},
+      {path: 'produtos/create',     component: ProdutoCreateComponent},
+      {path: 'produtos/update/:id',     component: ProdutoCreateComponent}
 
     ]
   } 
