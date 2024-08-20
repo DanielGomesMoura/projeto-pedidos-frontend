@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-produto-list',
@@ -20,7 +21,7 @@ export class ProdutoListComponent implements OnInit {
     descricao: '',
     unidade: '',
     valor_custo: '',
-    valor_venda: 0,
+    valor_venda: '',
   }
 
   displayedColumns: string[] = ['id', 'descricao', 'unidade','valor_custo','valor_venda','acoes'];
@@ -30,7 +31,8 @@ export class ProdutoListComponent implements OnInit {
 
   constructor(private service: ProdutoService,
               private toast: ToastrService,
-              private dialog: MatDialog
+              private dialog: MatDialog,
+              private currencyPipe: CurrencyPipe 
              ) { }
 
   ngOnInit(): void {
@@ -45,10 +47,28 @@ export class ProdutoListComponent implements OnInit {
 
   findAll(){
     this.service.findAll().subscribe(resposta => {
-    this.ELEMENT_DATA = resposta 
-    this.dataSource = new MatTableDataSource<Produto>(resposta);
-    this.dataSource.paginator = this.paginator;
-    })
+      // Formatar o valor como moeda e substituir o ponto por vírgula
+      const formattedData = resposta.map((produto: Produto) => {
+        const formattedValorCusto = this.currencyPipe.transform(produto.valor_custo, 'BRL', 'symbol', '1.2-2');
+        const valorCustoComVirgula = formattedValorCusto ? formattedValorCusto.replace('.', ',') : '';
+        const valorCustoComEspaco = valorCustoComVirgula ? 
+        valorCustoComVirgula.replace('R$', 'R$ ') : '';
+        const formattedValorvenda = this.currencyPipe.transform(produto.valor_venda, 'BRL', 'symbol', '1.2-2');
+        const valorVendaComVirgula = formattedValorvenda ? formattedValorvenda.replace('.', ',') : '';
+        const valorVendaComEspaco = valorVendaComVirgula ? 
+        valorCustoComVirgula.replace('R$', 'R$ ') : ''; 
+        
+        return {
+          ...produto,
+          valor_custo: valorCustoComEspaco,
+          valor_venda: valorVendaComEspaco
+        };
+      });
+      
+      this.ELEMENT_DATA = formattedData;
+      this.dataSource = new MatTableDataSource<Produto>(formattedData);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   applyFilter(event: Event) {

@@ -3,6 +3,6 @@ export interface Produto{
     descricao:   string;
     unidade:     string;
     valor_custo: string;
-    valor_venda: number;
+    valor_venda: string;
 
 }
