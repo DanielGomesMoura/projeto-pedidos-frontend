@@ -3,30 +3,32 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
-import { Cliente } from 'src/app/models/cliente';
-import { ClienteService } from 'src/app/services/cliente.service';
-//import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { Produto } from 'src/app/models/produto';
+import { ProdutoService } from 'src/app/services/produto.service';
+
 @Component({
-  selector: 'app-cliente-list',
-  templateUrl: './cliente-list.component.html',
-  styleUrls: ['./cliente-list.component.css']
+  selector: 'app-produto-list',
+  templateUrl: './produto-list.component.html',
+  styleUrls: ['./produto-list.component.css']
 })
-export class ClienteListComponent implements OnInit {
+export class ProdutoListComponent implements OnInit {
 
-  ELEMENT_DATA: Cliente[] = []
+  ELEMENT_DATA: Produto[] = []
 
-  cliente: Cliente = {
+  produto: Produto = {
     id: '',
-    nome: '',
-    email: ''
+    descricao: '',
+    unidade: '',
+    valor_custo: 0,
+    valor_venda: 0,
   }
 
-  displayedColumns: string[] = ['id', 'nome', 'email','acoes'];
-  dataSource = new MatTableDataSource<Cliente>(this.ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'descricao', 'unidade','valor_custo','valor_venda'];
+  dataSource = new MatTableDataSource<Produto>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(private service: ClienteService,
+  constructor(private service: ProdutoService,
               private toast: ToastrService,
               private dialog: MatDialog
              ) { }
@@ -36,15 +38,15 @@ export class ClienteListComponent implements OnInit {
   }
 
   findById(): void{
-    this.service.findById(this.cliente.id).subscribe(resposta =>{
-      this.cliente = resposta
+    this.service.findById(this.produto.id).subscribe(resposta =>{
+      this.produto = resposta
     })
   }
 
   findAll(){
     this.service.findAll().subscribe(resposta => {
     this.ELEMENT_DATA = resposta 
-    this.dataSource = new MatTableDataSource<Cliente>(resposta);
+    this.dataSource = new MatTableDataSource<Produto>(resposta);
     this.dataSource.paginator = this.paginator;
     })
   }

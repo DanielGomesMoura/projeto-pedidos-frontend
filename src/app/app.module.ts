@@ -15,6 +15,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { ToastrModule } from 'ngx-toastr';
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSelectModule} from "@angular/material/select";
@@ -26,9 +27,11 @@ import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
 import { NavComponent } from './component/nav/nav.component';
 import { HeaderComponent } from './component/header/header.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { HomeComponent } from './component/home/home.component';
 import { ClienteListComponent } from './component/cliente/cliente-list/cliente-list.component';
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
+import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,8 @@ import { ClienteCreateComponent } from './component/cliente/cliente-create/clien
     HeaderComponent,
     HomeComponent,
     ClienteListComponent,
-    ClienteCreateComponent
+    ClienteCreateComponent,
+    ProdutoListComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,12 @@ import { ClienteCreateComponent } from './component/cliente/cliente-create/clien
     MatIconModule,
     MatListModule,
     MatCardModule,
+    MatDialogModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      closeButton: true,
+      progressBar: true
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

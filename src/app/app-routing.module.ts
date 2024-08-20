@@ -4,6 +4,7 @@ import { NavComponent } from './component/nav/nav.component';
 import { HomeComponent } from './component/home/home.component';
 import { ClienteListComponent } from './component/cliente/cliente-list/cliente-list.component';
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
+import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,11 @@ const routes: Routes = [
     path: '', component: NavComponent, children:[
       {path: 'home' ,               component: HomeComponent }, 
       {path: 'clientes',            component:  ClienteListComponent},
-      {path: 'clientes/create',     component: ClienteCreateComponent}
+      {path: 'clientes/create',     component: ClienteCreateComponent},
+      {path: 'clientes/update/:id', component: ClienteCreateComponent},
+
+      {path: 'produtos',            component:  ProdutoListComponent},
+
     ]
   } 
 ];
