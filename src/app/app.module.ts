@@ -32,6 +32,7 @@ import { HomeComponent } from './component/home/home.component';
 import { ClienteListComponent } from './component/cliente/cliente-list/cliente-list.component';
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
+import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ProdutoListComponent } from './component/produto/produto-list/produto-l
     HomeComponent,
     ClienteListComponent,
     ClienteCreateComponent,
-    ProdutoListComponent
+    ProdutoListComponent,
+    ProdutoCreateComponent
   ],
   imports: [
     BrowserModule,

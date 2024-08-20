@@ -1,0 +1,48 @@
+<div class="container mat-elevation-z8">
+    <form class="form">
+        <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Produto' : 'Cadastrar Produto' }}</h1>
+
+            <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-label>Descrição</mat-label>
+            <input [(ngModel)]="produto.descricao" name="descricao" [formControl]="descricao" required matInput placeholder="Digite seu nome..."
+            maxlength="50">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-label>Unidade</mat-label>
+            <mat-select [(ngModel)]="produto.unidade" name="unidade" [formControl]="unidade" required>
+              <mat-option value="UN">UNIDADE</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>tab</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-label>valor Custo</mat-label>
+            <input type="number" [(ngModel)]="produto.valor_custo" name="valor_custo" [formControl]="valor_custo" required min="0.01" matInput placeholder="ex..: 0,00">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error *ngIf="valor_custo.invalid && (valor_custo.dirty || valor_custo.touched)">
+              <span *ngIf="valor_custo.errors?.required">Valor é obrigatório.</span>
+              <span *ngIf="valor_custo.errors?.min">O valor deve ser maior que zero.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-label>Valor Venda</mat-label>
+            <input type="number" [(ngModel)]="produto.valor_venda" name="valor_venda" [formControl]="valor_venda" required min="0.01" matInput placeholder="ex..: 0,00">
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error *ngIf="valor_custo.invalid && (valor_custo.dirty || valor_custo.touched)">
+              <span *ngIf="valor_custo.errors?.required">Valor é obrigatório.</span>
+              <span *ngIf="valor_custo.errors?.min">O valor deve ser maior que zero.</span>
+            </mat-error>
+          </mat-form-field>
+
+          <button (click)="save()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-raised-button color="primary">
+            {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}</button>
+            <button routerLink="/produtos" class="fullWidth mat-elevation-z4" mat-raised-button color="warn">
+                Cancelar</button>
+    </form>
+    <p class="fullWidth">
+     By Daniel Gomes Moura   
+    </p>
+</div>
