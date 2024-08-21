@@ -40,6 +40,7 @@ import { ClienteCreateComponent } from './component/cliente/cliente-create/clien
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -52,7 +53,8 @@ registerLocaleData(localePt, 'pt-BR');
     ClienteListComponent,
     ClienteCreateComponent,
     ProdutoListComponent,
-    ProdutoCreateComponent
+    ProdutoCreateComponent,
+    PedidoListComponent
   ],
   imports: [
     BrowserModule,
