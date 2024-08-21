@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,8 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 //Componentes do Projeto
 import { NavComponent } from './component/nav/nav.component';
@@ -38,6 +40,8 @@ import { ClienteCreateComponent } from './component/cliente/cliente-create/clien
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 import { NgxMaskModule } from 'ngx-mask';
+
+registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
   declarations: [
@@ -79,7 +83,10 @@ import { NgxMaskModule } from 'ngx-mask';
     }),
     NgxMaskModule.forRoot()
   ],
-  providers: [CurrencyPipe],
+  providers: [
+    CurrencyPipe,
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
