@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService } from 'src/app/services/produto.service';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-produto-create',
@@ -18,7 +19,8 @@ export class ProdutoCreateComponent implements OnInit {
   constructor(private service: ProdutoService,
               private toast: ToastrService, 
               private router: Router,
-              private activatedRout: ActivatedRoute) { }
+              private activatedRout: ActivatedRoute,
+              private currencyPipe: CurrencyPipe ) { }
 
   ngOnInit(): void {
     this.produtoForm = new FormGroup({
@@ -42,11 +44,23 @@ export class ProdutoCreateComponent implements OnInit {
       this.produtoForm.patchValue({
         descricao: resposta.descricao,
         unidade: resposta.unidade,
-        valor_custo: resposta.valor_custo,
-        valor_venda: resposta.valor_venda
+        valor_custo: this.formatarMoeda(resposta.valor_custo),
+        valor_venda: this.formatarMoeda(resposta.valor_venda)
       });
     })
   }
+
+  formatarMoeda(obj: number | string){
+    const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', '', '1.2-2');
+    const valorCustoComVirgula = formattedValorCusto
+    const valorCustoComEspaco = valorCustoComVirgula
+    return valorCustoComEspaco;
+}
+
+parseMoeda(valor: string): number {
+  if (!valor) return 0;
+  return parseFloat(valor);
+}
 
   save(): void {
     if (this.isEditMode) {
@@ -57,7 +71,13 @@ export class ProdutoCreateComponent implements OnInit {
   }
 
   update(): void {
-    this.service.update(this.produtoForm.value).subscribe(() => {
+    const formValue = this.produtoForm.value;
+
+    // Converte os valores formatados de volta para double
+    formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
+    formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+
+    this.service.update(formValue).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
       this.router.navigate(['produtos']);
     },ex => {

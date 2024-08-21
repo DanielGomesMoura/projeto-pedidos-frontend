@@ -20,8 +20,8 @@ export class ProdutoListComponent implements OnInit {
     id: '',
     descricao: '',
     unidade: '',
-    valor_custo: '',
-    valor_venda: '',
+    valor_custo: 0,
+    valor_venda: 0,
   }
 
   displayedColumns: string[] = ['id', 'descricao', 'unidade','valor_custo','valor_venda','acoes'];
@@ -48,20 +48,13 @@ export class ProdutoListComponent implements OnInit {
   findAll(){
     this.service.findAll().subscribe(resposta => {
       // Formatar o valor como moeda e substituir o ponto por vírgula
-      const formattedData = resposta.map((produto: Produto) => {
-        const formattedValorCusto = this.currencyPipe.transform(produto.valor_custo, 'BRL', 'symbol', '1.2-2');
-        const valorCustoComVirgula = formattedValorCusto ? formattedValorCusto.replace('.', ',') : '';
-        const valorCustoComEspaco = valorCustoComVirgula ? 
-        valorCustoComVirgula.replace('R$', 'R$ ') : '';
-        const formattedValorvenda = this.currencyPipe.transform(produto.valor_venda, 'BRL', 'symbol', '1.2-2');
-        const valorVendaComVirgula = formattedValorvenda ? formattedValorvenda.replace('.', ',') : '';
-        const valorVendaComEspaco = valorVendaComVirgula ? 
-        valorCustoComVirgula.replace('R$', 'R$ ') : ''; 
-        
+       const formattedData = resposta.map((produto: Produto) => {
+      
         return {
           ...produto,
-          valor_custo: valorCustoComEspaco,
-          valor_venda: valorVendaComEspaco
+          valor_custo: this.formatarMoeda(produto.valor_custo),
+
+          valor_venda: this.formatarMoeda(produto.valor_venda)
         };
       });
       
@@ -69,6 +62,14 @@ export class ProdutoListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Produto>(formattedData);
       this.dataSource.paginator = this.paginator;
     });
+  }
+
+  formatarMoeda(obj: number | string){
+      const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', 'symbol', '1.2-2');
+      const valorCustoComVirgula = formattedValorCusto
+      const valorCustoComEspaco = valorCustoComVirgula ? 
+      valorCustoComVirgula.replace('R$', 'R$ ') : '';
+      return valorCustoComEspaco;
   }
 
   applyFilter(event: Event) {
