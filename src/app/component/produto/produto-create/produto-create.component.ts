@@ -52,14 +52,35 @@ export class ProdutoCreateComponent implements OnInit {
 
   formatarMoeda(obj: number | string){
     const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', '', '1.2-2');
-    const valorCustoComVirgula = formattedValorCusto
-    const valorCustoComEspaco = valorCustoComVirgula
-    return valorCustoComEspaco;
+    return formattedValorCusto;
+}
+
+// Função para validar o formato da moeda
+validarMoeda(control: any): { [key: string]: boolean } | null {
+  const regex = /^\d{1,3}(\.\d{3})*,\d{2}$/;
+  const isValid = regex.test(control.value);
+  return isValid ? null : { moedaInvalida: true };
+}
+
+moeda(campo: string, obj: any): void {
+  let value = obj.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+  value = (value / 100).toFixed(2) + ''; // Adiciona duas casas decimais
+  value = value.replace('.', ','); // Substitui o ponto pela vírgula
+  value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Adiciona os pontos de milhar
+  obj.value = value; // Atualiza o valor no campo
+
+   // Atualiza o valor no campo do formulário
+   this.produtoForm.get(campo)?.setValue(obj.value, { emitEvent: false });
+  // Valida o formato após a atualização
+  if (!this.validarMoeda(obj)) {
+    // Se precisar de uma ação adicional, você pode adicionar aqui
+  }
 }
 
 parseMoeda(valor: string): number {
-  if (!valor) return 0;
-  return parseFloat(valor);
+// Remove todos os pontos e substitui a vírgula por ponto
+const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
+  return parseFloat(valorNumerico);
 }
 
   save(): void {
@@ -72,9 +93,9 @@ parseMoeda(valor: string): number {
 
   update(): void {
     const formValue = this.produtoForm.value;
-
     // Converte os valores formatados de volta para double
     formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
+    alert(formValue.valor_custo)
     formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
 
     this.service.update(formValue).subscribe(() => {

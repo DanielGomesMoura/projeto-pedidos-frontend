@@ -22,10 +22,8 @@
             <input type="text" 
              name="valor_custo" formControlName="valor_custo" 
              required  
-             mask="separator.2"
-             thousandSeparator="."
              matInput
-             placeholder="ex..: 0,00">
+             placeholder="ex..: 0,00"  (keyup)="moeda('valor_custo',$event.target)">
             <mat-icon matSuffix>attach_money</mat-icon>
             <mat-error *ngIf="produtoForm.get('valor_custo')?.invalid && (produtoForm.get('valor_custo')?.dirty || produtoForm.get('valor_custo')?.touched)">
               <span *ngIf="produtoForm.get('valor_custo')?.errors?.required">Valor é obrigatório.</span>
@@ -38,10 +36,8 @@
             <input type="text"
             required
              name="valor_venda" 
-             mask="separator.2"
-             thousandSeparator="."
              formControlName="valor_venda" 
-             matInput placeholder="ex..: 0,00">
+             matInput placeholder="ex..: 0,00" (keyup)="moeda('valor_venda', $event.target)">
             <mat-icon matSuffix>attach_money</mat-icon>
             <mat-error *ngIf="produtoForm.get('valor_venda')?.invalid && (produtoForm.get('valor_venda')?.dirty || produtoForm.get('valor_venda')?.touched)">
               <span *ngIf="produtoForm.get('valor_venda')?.errors?.required">Valor é obrigatório.</span>

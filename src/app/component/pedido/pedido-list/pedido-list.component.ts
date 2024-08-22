@@ -20,7 +20,7 @@ export class PedidoListComponent implements OnInit {
     id: '',
     data_registro: '',
     valor_total: '',
-    cliente_id: null,
+    cliente_fk: null,
     status: '',
     nomeCliente: ''
   }

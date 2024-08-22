@@ -7,6 +7,7 @@ import { ClienteCreateComponent } from './component/cliente/cliente-create/clien
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
+import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,9 @@ const routes: Routes = [
       {path: 'produtos/create',     component: ProdutoCreateComponent},
       {path: 'produtos/update/:id', component: ProdutoCreateComponent},
 
-      {path: 'pedidos',            component:  PedidoListComponent}
+      {path: 'pedidos',            component:  PedidoListComponent},
+      {path: 'pedidos/create',     component:  PedidoCreateComponent}
+      
 
     ]
   } 
