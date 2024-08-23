@@ -16,8 +16,7 @@ export class PedidoCreateComponent implements OnInit {
 
   pedidoForm: FormGroup;
   isEditMode: boolean = false;
-  listCliente: Cliente[];
-  clienteSelect: string;
+  clientes: Cliente[] = [];
 
   constructor(private service: PedidoService,
               private clienteService: ClienteService,
@@ -39,19 +38,19 @@ export class PedidoCreateComponent implements OnInit {
       this.findById(id);
       this.isEditMode = true;
     }
+    this.findCliente();
   }
 
   findCliente():void{
-    this.clienteService.findAll().subscribe(resposta =>{
-      this.listCliente = resposta;
-      console.log(this.listCliente)
-    })
+    this.clienteService.findAll().subscribe((data: Cliente[]) => {
+      this.clientes = data;
+    });
   }
 
   findById(id: string): void{
     this.service.findById(id).subscribe(resposta =>{
       this.pedidoForm.patchValue({
-        clienti_id: resposta.cliente_fk,
+        cliente_fk: resposta.cliente_fk,
         valor_total: this.formatarMoeda(resposta.valor_total)
       });
     })
@@ -81,14 +80,13 @@ export class PedidoCreateComponent implements OnInit {
 
   formatarMoeda(obj: number | string){
     const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', '', '1.2-2');
-    const valorCustoComVirgula = formattedValorCusto
-    const valorCustoComEspaco = valorCustoComVirgula
-    return valorCustoComEspaco;
+    return formattedValorCusto;
 }
 
 parseMoeda(valor: string): number {
-  if (!valor) return 0;
-  return parseFloat(valor);
+// Remove todos os pontos e substitui a vírgula por ponto
+const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
+  return parseFloat(valorNumerico);
 }
 
   save(): void {
@@ -103,8 +101,7 @@ parseMoeda(valor: string): number {
     const formValue = this.pedidoForm.value;
 
     // Converte os valores formatados de volta para double
-    formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
-    formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+    formValue.valor_total = this.parseMoeda(formValue.valor_total);
 
     this.service.update(formValue).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
@@ -121,6 +118,10 @@ parseMoeda(valor: string): number {
   }
 
   create(): void {
+    const formValue = this.pedidoForm.value;
+    // Converte os valores formatados de volta para double
+    formValue.valor_total = this.parseMoeda(formValue.valor_total);
+
     this.service.create(this.pedidoForm.value).subscribe(resposta => {
       this.toast.success('Pedido cadastrado com sucesso');
       this.router.navigate(['pedidos']);

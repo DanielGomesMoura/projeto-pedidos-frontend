@@ -113,7 +113,11 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
   }
 
   create(): void {
-    this.service.create(this.produtoForm.value).subscribe(resposta => {
+    const formValue = this.produtoForm.value;
+    formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
+    formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+
+    this.service.create(formValue).subscribe(resposta => {
       this.toast.success('Produto cadastrado com sucesso');
       this.router.navigate(['produtos']);
     },ex => {

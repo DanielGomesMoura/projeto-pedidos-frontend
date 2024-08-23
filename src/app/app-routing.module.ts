@@ -23,7 +23,8 @@ const routes: Routes = [
       {path: 'produtos/update/:id', component: ProdutoCreateComponent},
 
       {path: 'pedidos',            component:  PedidoListComponent},
-      {path: 'pedidos/create',     component:  PedidoCreateComponent}
+      {path: 'pedidos/create',     component:  PedidoCreateComponent},
+      {path: 'pedidos/update/:id', component: PedidoCreateComponent}
       
 
     ]

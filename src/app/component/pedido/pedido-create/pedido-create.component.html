@@ -4,9 +4,9 @@
 
             <mat-form-field appearance="legacy" class="fullWidth">
             <mat-label>cliente</mat-label>
-            <mat-select>
-                <mat-option value="cliente.id">
-                  teste
+            <mat-select formControlName="cliente_fk">
+              <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
+                {{ cliente.nome }}
                 </mat-option>
               </mat-select>
               <mat-hint>Selecionar um Cliente</mat-hint>
