@@ -1,3 +1,5 @@
+import { ItenPedido } from "./itenPedido";
+
 export interface Pedido{
     id?:             any;
     data_registro:   string;
@@ -5,4 +7,5 @@ export interface Pedido{
     cliente_fk:      number;
     status:          string;
     nomeCliente:     string;
+    itensPedido?: ItenPedido[];
 }
