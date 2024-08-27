@@ -34,7 +34,7 @@ export class PedidoCreateComponent implements OnInit {
     this.pedidoForm = new FormGroup({
       id:           new FormControl(null),
       cliente_fk:   new FormControl(null,Validators.required),
-      valor_total: new FormControl({value: '0,00', disabled: true}),
+      valor_total: new FormControl(null, Validators.required),
       itensPedido:  new FormArray([])
     });
 
@@ -71,32 +71,28 @@ get itensPedido(): FormArray {
     this.service.findById(id).subscribe(resposta =>{
       this.pedidoForm.patchValue({
         cliente_fk: resposta.cliente_fk,
-        valor_total: this.formatarMoeda(resposta.valor_total)
+        valor_total: this.formatarMoeda(resposta.valor_total),
       });
-    })
-  }
+      
+       // Obtenha o FormArray de itensPedido do pedidoForm
+    const itensPedidoArray = this.pedidoForm.get('itensPedido') as FormArray;
 
-  moeda(campo: string, obj: any): void {
-    let value = obj.value.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-    value = (value / 100).toFixed(2) + ''; // Adiciona duas casas decimais
-    value = value.replace('.', ','); // Substitui o ponto pela vírgula
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // Adiciona os pontos de milhar
-    obj.value = value; // Atualiza o valor no campo
-  
-     // Atualiza o valor no campo do formulário
-     this.pedidoForm.get(campo)?.setValue(obj.value, { emitEvent: false });
-    // Valida o formato após a atualização
-    if (!this.validarMoeda(obj)) {
-      // Se precisar de uma ação adicional, você pode adicionar aqui
-    }
-  }
+    // Limpe o FormArray existente (opcional, dependendo do seu caso de uso)
+    itensPedidoArray.clear();
 
-  // Função para validar o formato da moeda
- validarMoeda(control: any): { [key: string]: boolean } | null {
-  const regex = /^\d{1,3}(\.\d{3})*,\d{2}$/;
-  const isValid = regex.test(control.value);
-  return isValid ? null : { moedaInvalida: true };
- }
+    // Adicione cada itemPedido ao FormArray
+    resposta.itensPedido.forEach((item: any) => {
+      const itemFormGroup = new FormGroup({
+        id: new FormControl(item.id),
+        produto_fk: new FormControl(item.produto_fk),
+        descricao_produto: new FormControl(item.descricao_produto, Validators.required),
+        quantidade: new FormControl(item.quantidade, Validators.required),
+        valor_unitario: new FormControl(item.valor_unitario, Validators.required)
+      });
+      itensPedidoArray.push(itemFormGroup);
+    });
+  });
+  }
 
   formatarMoeda(obj: number | string){
     const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', '', '1.2-2');
@@ -120,8 +116,17 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
   update(): void {
     const formValue = this.pedidoForm.value;
 
-    // Converte os valores formatados de volta para double
-    formValue.valor_total = this.parseMoeda(formValue.valor_total);
+  // Converte os valores formatados de volta para double
+  formValue.valor_total = this.parseMoeda(formValue.valor_total);
+
+  // Se `itensPedido` estiver presente, garanta que seja um array válido
+if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
+ formValue.itensPedido = formValue.itensPedido.map((item: any) => {
+   return {
+     ...item,
+   };
+ });
+}
 
     this.service.update(formValue).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
@@ -140,8 +145,8 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
   create(): void {
     const formValue = this.pedidoForm.value;
     
-    // Converte os valores formatados de volta para double
-   alert(formValue.valor_total)
+   // Converte os valores formatados de volta para double
+   formValue.valor_total = this.parseMoeda(formValue.valor_total);
 
      // Se `itensPedido` estiver presente, garanta que seja um array válido
   if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
@@ -177,7 +182,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     const itensPedidoArray = this.pedidoForm.get('itensPedido') as FormArray;
     // Cria um novo FormGroup para o item do pedido
     const newItem = new FormGroup({
-      produto_fk: new FormControl(produtoId, Validators.required),
+      produto_fk: new FormControl(produtoId),
       descricao_produto: new FormControl(produto.descricao, Validators.required),
       quantidade: new FormControl(1, Validators.required),
       valor_unitario: new FormControl(produto.valor_venda, Validators.required)
@@ -202,7 +207,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     }, 0);
     // Atualiza o campo valor_total no FormGroup
    this.pedidoForm.patchValue({
-      valor_total: this.formatarMoeda(valorTotal)
-    });
+      valor_total: this.formatarMoeda(valorTotal),
+    }); 
   }
 }

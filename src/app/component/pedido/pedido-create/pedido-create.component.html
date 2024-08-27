@@ -11,17 +11,17 @@
               </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy">
+          <mat-form-field appearance="legacy" class="fullWidth">
             <mat-label>Produto</mat-label>
-            <mat-select formControlName="produto_fk" (selectionChange)="onProdutoChange($event)">
+            <mat-select (selectionChange)="onProdutoChange($event)">
               <mat-option *ngFor="let produto of produtos" [value]="produto.id">
                 {{ produto.descricao }}
               </mat-option>
             </mat-select>
           </mat-form-field>
           
-      <div formArrayName="itensPedido" >
-        <div *ngFor="let item of itensPedido.controls; let i = index" [formGroupName]="i">
+       <div formArrayName="itensPedido" >
+         <div *ngFor="let item of itensPedido.controls; let i = index" [formGroupName]="i">
           <mat-form-field appearance="legacy" id="produto">
             <input matInput type="text" formControlName="descricao_produto" readonly="true" placeholder="produto">
           </mat-form-field>
@@ -42,9 +42,9 @@
             <mat-label>valor_total</mat-label>
             <input type="text" 
              name="valor_total" formControlName="valor_total" 
-             readonly="false"  
+             readonly="true"  
              matInput
-             placeholder="ex..: 0,00" (keyup)="moeda('valor_total', $event.target)">
+             placeholder="ex..: 0,00">
             <mat-icon matSuffix>attach_money</mat-icon>
             <mat-error *ngIf="pedidoForm.get('valor_total')?.invalid && (pedidoForm.get('valor_total')?.dirty || pedidoForm.get('valor_total')?.touched)">
               <span *ngIf="pedidoForm.get('valor_total')?.errors?.required">Valor é obrigatório.</span>
@@ -54,7 +54,7 @@
 
           <button (click)="save()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-raised-button color="primary">
             {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}</button>
-            <button routerLink="/produtos" class="fullWidth mat-elevation-z4" mat-raised-button color="warn">
+            <button routerLink="/pedidos" class="fullWidth mat-elevation-z4" mat-raised-button color="warn">
                 Cancelar</button>
     </form>
     <p class="fullWidth">

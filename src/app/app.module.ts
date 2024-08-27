@@ -43,6 +43,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
 
+
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({
