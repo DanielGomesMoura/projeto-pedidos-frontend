@@ -34,7 +34,7 @@ export class PedidoCreateComponent implements OnInit {
     this.pedidoForm = new FormGroup({
       id:           new FormControl(null),
       cliente_fk:   new FormControl(null,Validators.required),
-      valor_total:  new FormControl(null, Validators.required),
+      valor_total: new FormControl({value: '0,00', disabled: true}),
       itensPedido:  new FormArray([])
     });
 
@@ -46,6 +46,7 @@ export class PedidoCreateComponent implements OnInit {
     }
     this.findCliente();
     this.findProduto();
+    this.onChanges();
   }
 
   // Método para acessar o FormArray
@@ -138,8 +139,9 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
 
   create(): void {
     const formValue = this.pedidoForm.value;
+    
     // Converte os valores formatados de volta para double
-    formValue.valor_total = this.parseMoeda(formValue.valor_total);
+   alert(formValue.valor_total)
 
      // Se `itensPedido` estiver presente, garanta que seja um array válido
   if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
@@ -186,9 +188,21 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
   }
 }
 
-getQuantidade(index: number): number | null {
-  const item = this.itensPedido.at(index) as FormGroup;
-  return item.get('quantidade')?.value || null;
-}
+ onChanges(): void {
+    this.itensPedido.valueChanges.subscribe(() => {
+      this.updateValorTotal();
+    });
+  }
 
+    updateValorTotal(): void {
+    const valorTotal = this.itensPedido.controls.reduce((acc, item) => {
+      const quantidade = item.get('quantidade').value;
+      const valorUnitario = item.get('valor_unitario').value;
+      return acc + (quantidade * valorUnitario);
+    }, 0);
+    // Atualiza o campo valor_total no FormGroup
+   this.pedidoForm.patchValue({
+      valor_total: this.formatarMoeda(valorTotal)
+    });
+  }
 }
