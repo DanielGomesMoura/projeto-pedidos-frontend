@@ -130,7 +130,7 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
 
     this.service.update(formValue).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
-      this.router.navigate(['produtos']);
+      this.router.navigate(['pedidos']);
     },ex => {
       if(ex.error.errors){
         ex.error.errors.forEach(element => {
