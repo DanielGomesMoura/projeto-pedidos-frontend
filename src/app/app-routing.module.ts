@@ -27,7 +27,7 @@ const routes: Routes = [
       {path: 'pedidos/create',     component:  PedidoCreateComponent},
       {path: 'pedidos/update/:id', component: PedidoCreateComponent},
 
-      {path: 'pagamentos',     component:  PagamentoCreateComponent},
+      {path: 'pagamentos/:id',     component:  PagamentoCreateComponent},
 
     ]
   } 

@@ -49,7 +49,7 @@ export class PedidoListComponent implements OnInit {
   }
 
   redirectToPagamentos(elementId: number) {
-  this.router.navigate(['/pagamentos']);
+  this.router.navigate(['/pagamentos', elementId]);
 }
 
   findAll(){

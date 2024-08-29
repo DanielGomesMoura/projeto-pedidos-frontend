@@ -15,6 +15,7 @@ export class PagamentoCreateComponent implements OnInit {
    pagamentoForm: FormGroup;
   isEditMode: boolean = false;
   tipoPagamento: [] = [];
+  pedidoId: number;
 
   constructor(private service: PagamentoService,
               private toast: ToastrService, 
@@ -29,21 +30,8 @@ export class PagamentoCreateComponent implements OnInit {
       valor_pagamento: new FormControl(null, Validators.required),
       tipo_pagamento:  new FormControl(null, Validators.required)
     });
-
-    const id = this.activatedRout.snapshot.paramMap.get('id');
-    if(id){
-      this.pagamentoForm.patchValue({id});
-      //this.findById(id);
-      this.isEditMode = true;
-    }
-   // this.findCliente();
+   this.pedidoId = +this.activatedRout.snapshot.paramMap.get('id');
   }
-
- //  findCliente():void{
- //   this.service.findAll().subscribe((data: Cliente[]) => {
-  //    this.clientes = data;
-   // });
-  //}
 
   formatarMoeda(obj: number | string){
     const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', '', '1.2-2');
@@ -90,9 +78,9 @@ validarMoeda(control: any): { [key: string]: boolean } | null {
     
    // Converte os valores formatados de volta para double
    formValue.valor_pagamento = this.parseMoeda(formValue.valor_pagamento);
-   formValue.pedido_fk = 1;
+   formValue.pedido_fk = this.pedidoId;
 
-    this.service.create(this.pagamentoForm.value).subscribe(resposta => {
+    this.service.create(formValue).subscribe(resposta => {
       this.toast.success('Pagamento cadastrado com sucesso');
       this.router.navigate(['pedidos']);
     },ex => {

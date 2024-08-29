@@ -9,7 +9,7 @@
                 <mat-option value="CREDITO">CREDITO</mat-option>
             </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="legacy" class="direita" id="valor_pagamento">
+        <mat-form-field appearance="legacy" id="valor_pagamento">
             <mat-label>Valor Pagamento</mat-label>
             <input type="text" name="valor_pagamento" formControlName="valor_pagamento" matInput (keyup)="moeda('valor_pagamento',$event.target)">
             <mat-icon matSuffix>attach_money</mat-icon>
