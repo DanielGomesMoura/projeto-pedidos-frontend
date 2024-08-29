@@ -42,6 +42,7 @@ import { ProdutoCreateComponent } from './component/produto/produto-create/produ
 import { NgxMaskModule } from 'ngx-mask';
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
+import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -57,7 +58,8 @@ registerLocaleData(localePt, 'pt-BR');
     ProdutoListComponent,
     ProdutoCreateComponent,
     PedidoListComponent,
-    PedidoCreateComponent
+    PedidoCreateComponent,
+    PagamentoCreateComponent
   ],
   imports: [
     BrowserModule,

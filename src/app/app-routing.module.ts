@@ -8,6 +8,7 @@ import { ProdutoListComponent } from './component/produto/produto-list/produto-l
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
+import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
 
 
 const routes: Routes = [
@@ -24,8 +25,9 @@ const routes: Routes = [
 
       {path: 'pedidos',            component:  PedidoListComponent},
       {path: 'pedidos/create',     component:  PedidoCreateComponent},
-      {path: 'pedidos/update/:id', component: PedidoCreateComponent}
-      
+      {path: 'pedidos/update/:id', component: PedidoCreateComponent},
+
+      {path: 'pagamentos',     component:  PagamentoCreateComponent},
 
     ]
   } 

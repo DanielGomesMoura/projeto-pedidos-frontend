@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { CurrencyPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pedido-list',
@@ -33,7 +34,8 @@ export class PedidoListComponent implements OnInit {
   constructor(private service: PedidoService,
               private toast: ToastrService,
               private dialog: MatDialog,
-              private currencyPipe: CurrencyPipe
+              private currencyPipe: CurrencyPipe,
+              private router: Router
              ) { }
 
   ngOnInit(): void {
@@ -45,6 +47,10 @@ export class PedidoListComponent implements OnInit {
       this.pedido = resposta
     })
   }
+
+  redirectToPagamentos(elementId: number) {
+  this.router.navigate(['/pagamentos']);
+}
 
   findAll(){
     this.service.findAll().subscribe(resposta => {
