@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { from } from 'rxjs';
 import { PagamentoService } from 'src/app/services/pagamento.service';
+import { PedidoService } from 'src/app/services/pedido.service';
 
 @Component({
   selector: 'app-pagamento-create',
@@ -16,21 +18,36 @@ export class PagamentoCreateComponent implements OnInit {
   isEditMode: boolean = false;
   tipoPagamento: [] = [];
   pedidoId: number;
+  valorTotal: number|string;
+  valoresIguais: boolean = true;
 
   constructor(private service: PagamentoService,
               private toast: ToastrService, 
               private router: Router,
               private activatedRout: ActivatedRoute,
-              private currencyPipe: CurrencyPipe) { }
+              private currencyPipe: CurrencyPipe,
+              private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
     this.pagamentoForm = new FormGroup({
       id:           new FormControl(null),
-      pedido_fk:   new FormControl(1,Validators.required),
+      pedido_fk:   new FormControl(null,Validators.required),
       valor_pagamento: new FormControl(null, Validators.required),
-      tipo_pagamento:  new FormControl(null, Validators.required)
+      tipo_pagamento:  new FormControl(null, Validators.required),
+      valor_total: new FormControl(null)
     });
    this.pedidoId = +this.activatedRout.snapshot.paramMap.get('id');
+    // Obtendo os detalhes do pedido usando o ID
+    this.pedidoService.findById(this.pedidoId).subscribe(data => {
+      this.valorTotal = data.valor_total; // Ajuste conforme a estrutura do seu retorno
+      //passa o valortotal para o componente para ser renderizado
+      this.pagamentoForm.patchValue({
+        valor_total: this.formatarMoeda(this.valorTotal),
+        pedido_fk: this.pedidoId
+      });
+    }, error => {
+      console.error('Erro ao obter detalhes do pedido', error);
+    });
   }
 
   formatarMoeda(obj: number | string){
@@ -78,6 +95,7 @@ validarMoeda(control: any): { [key: string]: boolean } | null {
     
    // Converte os valores formatados de volta para double
    formValue.valor_pagamento = this.parseMoeda(formValue.valor_pagamento);
+   formValue.valor_total = this.parseMoeda(formValue.valor_total);
    formValue.pedido_fk = this.pedidoId;
 
     this.service.create(formValue).subscribe(resposta => {
@@ -92,6 +110,12 @@ validarMoeda(control: any): { [key: string]: boolean } | null {
         this.toast.error(ex.error.message);
       }
     })
+  }
+
+  validarPagamento(): void {
+    const valorTotal = this.parseMoeda(this.pagamentoForm.get('valor_total')?.value);
+    const valorPagamento = this.parseMoeda(this.pagamentoForm.get('valor_pagamento')?.value);
+    this.valoresIguais = valorTotal === valorPagamento;
   }
   
   validaCampos(): boolean { 

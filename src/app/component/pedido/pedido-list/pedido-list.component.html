@@ -41,10 +41,10 @@
               <th mat-header-cell *matHeaderCellDef style="padding-left: 1.5rem; width: 10%;"> AÇÕES </th>
               <td mat-cell *matCellDef="let element"> 
                 <div class="teste">
-                <button [routerLink]="['update']" mat-icon-button>
+                <button [routerLink]="['update',element.id]" class="primary" mat-icon-button  color="primary" [disabled]="element.status === 'PAGO'">
                   <mat-icon class="edit">edit</mat-icon>
               </button>
-              <button (click)="redirectToPagamentos(element.id)" mat-icon-button [disabled]="element.status == 'PAGO'">
+              <button (click)="redirectToPagamentos(element.id)" mat-icon-button color="primary" [disabled]="element.status === 'PAGO'">
                 <mat-icon>payment</mat-icon>
               </button>
               </div>

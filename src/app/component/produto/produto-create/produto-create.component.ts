@@ -95,8 +95,8 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     const formValue = this.produtoForm.value;
     // Converte os valores formatados de volta para double
     formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
-    alert(formValue.valor_custo)
     formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+    formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.update(formValue).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso','Update');
@@ -116,6 +116,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     const formValue = this.produtoForm.value;
     formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
     formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+    formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.create(formValue).subscribe(resposta => {
       this.toast.success('Produto cadastrado com sucesso');

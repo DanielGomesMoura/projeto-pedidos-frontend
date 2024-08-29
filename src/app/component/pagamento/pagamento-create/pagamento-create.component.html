@@ -5,19 +5,33 @@
         <mat-form-field appearance="legacy" class="fullWidth">
             <mat-label>tipo Pagamento</mat-label>
             <mat-select formControlName="tipo_pagamento">
+                <mat-option value="CREDITO">PIX</mat-option>
+                <mat-option value="CREDITO">DINHEIRO</mat-option>
                 <mat-option value="DEBITO">DEBITO</mat-option>
                 <mat-option value="CREDITO">CREDITO</mat-option>
             </mat-select>
         </mat-form-field>
         <mat-form-field appearance="legacy" id="valor_pagamento">
             <mat-label>Valor Pagamento</mat-label>
-            <input type="text" name="valor_pagamento" formControlName="valor_pagamento" matInput (keyup)="moeda('valor_pagamento',$event.target)">
+            <input type="text" name="valor_pagamento" formControlName="valor_pagamento"
+             matInput (keyup)="moeda('valor_pagamento',$event.target)"
+            (keyup)="validarPagamento()">
             <mat-icon matSuffix>attach_money</mat-icon>
         </mat-form-field>
 
-        <button (click)="save()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-raised-button
-            color="primary">
-            {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}</button>
+        <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-label>valor_total</mat-label>
+            <input type="text" 
+             name="valor_total" 
+             formControlName="valor_total" 
+             readonly="true" 
+             matInput
+             placeholder="ex..: 0,00">
+            <mat-icon matSuffix>attach_money</mat-icon>
+          </mat-form-field>
+
+        <button (click)="save()" [disabled]="!validaCampos() || !valoresIguais" class="fullWidth mat-elevation-z4" mat-raised-button
+            color="primary">Cadastrar</button>
         <button routerLink="/pedidos" class="fullWidth mat-elevation-z4" mat-raised-button color="warn">
             Cancelar</button>
     </form>
