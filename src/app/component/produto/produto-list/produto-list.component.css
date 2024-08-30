@@ -10,7 +10,16 @@
     mat-form-field{
     width: 100%;
     }
+
+    .text-center {
+    text-align: center;
+    }
     
+   .text-right {
+    padding-right: 2rem;
+    text-align: right;
+    }
+
     .create{
         width: 11rem;
     }

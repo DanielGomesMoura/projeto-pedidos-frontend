@@ -21,22 +21,22 @@
             </ng-container>
         
             <ng-container matColumnDef="unidade">
-              <th mat-header-cell *matHeaderCellDef> UN </th>
-              <td mat-cell *matCellDef="let element"> {{element.unidade}} </td>
+              <th mat-header-cell *matHeaderCellDef class="text-center"> UN </th>
+              <td mat-cell *matCellDef="let element" class="text-center"> {{element.unidade}} </td>
             </ng-container>
 
             <ng-container matColumnDef="valor_custo">
-                <th mat-header-cell *matHeaderCellDef> VALOR CUSTO </th>
-                <td mat-cell *matCellDef="let element"> {{element.valor_custo}} </td>
+                <th mat-header-cell *matHeaderCellDef class="text-right" style="width: 20%;"> VALOR CUSTO </th>
+                <td mat-cell *matCellDef="let element" class="text-right"> {{element.valor_custo}} </td>
               </ng-container>
 
                 <ng-container matColumnDef="valor_venda">
-                <th mat-header-cell *matHeaderCellDef> VALOR VENDA </th>
-                <td mat-cell *matCellDef="let element"> {{element.valor_venda}} </td>
+                <th mat-header-cell *matHeaderCellDef class="text-right" style="width: 20%;"> VALOR VENDA </th>
+                <td mat-cell *matCellDef="let element" class="text-right"> {{element.valor_venda}} </td>
               </ng-container>
   
             <ng-container matColumnDef="acoes">
-              <th mat-header-cell *matHeaderCellDef style="padding-left: 1.5rem;"> AÇÕES </th>
+              <th mat-header-cell *matHeaderCellDef style="padding-left: 1.5rem; width: 10%;"> AÇÕES </th>
               <td mat-cell *matCellDef="let element"> 
                 <div class="teste">
                 <button [routerLink]="['update', element.id]" color="primary" mat-icon-button>
