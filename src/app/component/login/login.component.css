@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    background-image: url("../../../assets/images/area.jpeg");
+    background-image: url("../../../assets/images/imagem_fundo.jpeg");
     background-size: cover;
     /* Ajusta a imagem para cobrir completamente o elemento */
     background-position: center;
