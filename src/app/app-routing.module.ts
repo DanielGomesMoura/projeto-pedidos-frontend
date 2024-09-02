@@ -9,12 +9,16 @@ import { ProdutoCreateComponent } from './component/produto/produto-create/produ
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
 import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
+import { LoginComponent } from './component/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 const routes: Routes = [
-  {
-    path: '', component: NavComponent, children:[
+   {path: 'login', component: LoginComponent},
+   {
+    path: '', component: NavComponent, canActivate: [AuthGuard], children:[
       {path: 'home' ,               component: HomeComponent }, 
+      
       {path: 'clientes',            component:  ClienteListComponent},
       {path: 'clientes/create',     component: ClienteCreateComponent},
       {path: 'clientes/update/:id', component: ClienteCreateComponent},
@@ -27,7 +31,7 @@ const routes: Routes = [
       {path: 'pedidos/create',     component:  PedidoCreateComponent},
       {path: 'pedidos/update/:id', component: PedidoCreateComponent},
 
-      {path: 'pagamentos/:id',     component:  PagamentoCreateComponent},
+      {path: 'pagamentos/:id',     component:  PagamentoCreateComponent}
 
     ]
   } 

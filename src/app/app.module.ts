@@ -39,10 +39,12 @@ import { ClienteListComponent } from './component/cliente/cliente-list/cliente-l
 import { ClienteCreateComponent } from './component/cliente/cliente-create/cliente-create.component';
 import { ProdutoListComponent } from './component/produto/produto-list/produto-list.component';
 import { ProdutoCreateComponent } from './component/produto/produto-create/produto-create.component';
+import { AuthInterceptorProvider } from './interceptors/auth.interceptor';
 import { NgxMaskModule } from 'ngx-mask';
 import { PedidoListComponent } from './component/pedido/pedido-list/pedido-list.component';
 import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-create.component';
 import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
+import { LoginComponent } from './component/login/login.component';
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -59,7 +61,8 @@ registerLocaleData(localePt, 'pt-BR');
     ProdutoCreateComponent,
     PedidoListComponent,
     PedidoCreateComponent,
-    PagamentoCreateComponent
+    PagamentoCreateComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -92,6 +95,7 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   providers: [
     CurrencyPipe,
+    AuthInterceptorProvider,
     {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]

@@ -79,7 +79,6 @@ get itensPedido(): FormArray {
 
     // Limpe o FormArray existente (opcional, dependendo do seu caso de uso)
     itensPedidoArray.clear();
-
     // Adicione cada itemPedido ao FormArray
     resposta.itensPedido.forEach((item: any) => {
       const itemFormGroup = new FormGroup({
@@ -89,7 +88,20 @@ get itensPedido(): FormArray {
         quantidade: new FormControl(item.quantidade, Validators.required),
         valor_unitario: new FormControl(item.valor_unitario, Validators.required)
       });
+
+      // Escuta as mudanças na quantidade
+      const quantidadeControl = itemFormGroup.get('quantidade');
+      quantidadeControl?.valueChanges.subscribe((quantidade: number) => {
+        const valorUnitarioControl = itemFormGroup.get('valor_unitario');
+        if (quantidade > 1) {
+          valorUnitarioControl?.setValue(item.valor_promocional);
+        } else {
+          valorUnitarioControl?.setValue(item.valor_venda);
+        }
+      });
+
       itensPedidoArray.push(itemFormGroup);
+
     });
   });
   }
@@ -190,6 +202,17 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
 
     // Adiciona o novo FormGroup ao FormArray
     itensPedidoArray.push(newItem);
+
+     // Adiciona um listener para o campo 'quantidade'
+    const quantidadeControl = newItem.get('quantidade');
+    quantidadeControl?.valueChanges.subscribe((quantidade: number) => {
+      const valorUnitarioControl = newItem.get('valor_unitario');
+      if (quantidade > 1) {
+        valorUnitarioControl?.setValue(produto.valor_promocional);
+      } else {
+        valorUnitarioControl?.setValue(produto.valor_venda);
+      }
+    });
   }
 }
 

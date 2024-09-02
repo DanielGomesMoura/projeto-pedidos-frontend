@@ -1,0 +1,33 @@
+<div class="container">
+    <form class="form mat-elevation-z8">
+        <h1>DAN'S BRIGADEIROS ADS_Software</h1>
+        <div class="1">
+            <img src="assets/images/login-image.svg" alt="Help Desk - ADS_Software">
+            <div class="2">
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>E-mail</mat-label>
+                    <input [formControl]="email" required [(ngModel)]="cred.email" name="email" matInput
+                        placeholder="Digite aqui seu email">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Senha</mat-label>
+                    <input [formControl]="senha" required [(ngModel)]="cred.senha" name="senha" type="password" matInput
+                        [type]="hide ? 'password' : 'text'" placeholder="Ex. 123">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                        [attr.aria-pressed]="hide" (keydown.enter)="$event.preventDefault()">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="lembar">
+            <mat-checkbox color="none">Lembrar de mim</mat-checkbox>
+            <a href="https://www.example.com" class="meu-link">Esqueceu a senha</a>
+        </div>
+        <div class="botao-salvar">
+            <button (click)="logar()" [disabled]="!validaCampos()" mat-flat-button color="primary">Entrar</button>
+        </div>
+    </form>
+</div>

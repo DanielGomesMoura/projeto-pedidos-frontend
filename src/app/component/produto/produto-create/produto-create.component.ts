@@ -29,6 +29,7 @@ export class ProdutoCreateComponent implements OnInit {
       unidade:     new FormControl(null, Validators.required),
       valor_custo: new FormControl(null, Validators.required),
       valor_venda: new FormControl(null, Validators.required),
+      valor_promocional: new FormControl(null, Validators.required)
     })
 
     const id = this.activatedRout.snapshot.paramMap.get('id');
@@ -45,7 +46,8 @@ export class ProdutoCreateComponent implements OnInit {
         descricao: resposta.descricao,
         unidade: resposta.unidade,
         valor_custo: this.formatarMoeda(resposta.valor_custo),
-        valor_venda: this.formatarMoeda(resposta.valor_venda)
+        valor_venda: this.formatarMoeda(resposta.valor_venda),
+        valor_promocional: this.formatarMoeda(resposta.valor_promocional)
       });
     })
   }
@@ -96,6 +98,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     // Converte os valores formatados de volta para double
     formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
     formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+    formValue.valor_promocional = this.parseMoeda(formValue.valor_promocional);
     formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.update(formValue).subscribe(() => {
@@ -116,6 +119,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     const formValue = this.produtoForm.value;
     formValue.valor_custo = this.parseMoeda(formValue.valor_custo);
     formValue.valor_venda = this.parseMoeda(formValue.valor_venda);
+    formValue.valor_promocional = this.parseMoeda(formValue.valor_promocional);
     formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.create(formValue).subscribe(resposta => {

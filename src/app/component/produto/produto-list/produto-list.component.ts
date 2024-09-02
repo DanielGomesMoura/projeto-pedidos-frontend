@@ -22,6 +22,7 @@ export class ProdutoListComponent implements OnInit {
     unidade: '',
     valor_custo: 0,
     valor_venda: 0,
+    valor_promocional: 0,
   }
 
   displayedColumns: string[] = ['id', 'descricao', 'unidade','valor_custo','valor_venda','acoes'];
