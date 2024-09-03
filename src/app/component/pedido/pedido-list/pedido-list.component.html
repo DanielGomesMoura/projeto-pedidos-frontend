@@ -44,10 +44,10 @@
                 <button [routerLink]="['update',element.id]" 
                  class="primary" mat-icon-button  
                  color="primary"
-                 [disabled]="element.status === 'PAGO'"
-                 [disabled]="isButtonDisabled(element.data_registro)">
+                 [disabled]="element.status === 'PAGO' || isButtonDisabled(element.data_registro)">
                   <mat-icon class="edit">edit</mat-icon>
               </button>
+
               <button (click)="redirectToPagamentos(element.id)" mat-icon-button color="primary" 
                [disabled]="element.status === 'PAGO'">
                 <mat-icon>payment</mat-icon>
