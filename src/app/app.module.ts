@@ -46,6 +46,7 @@ import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-c
 import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
 import { LoginComponent } from './component/login/login.component';
 
+
 registerLocaleData(localePt, 'pt-BR');
 
 @NgModule({

@@ -7,6 +7,7 @@ import { Pedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-pedido-list',
@@ -16,6 +17,9 @@ import { Router } from '@angular/router';
 export class PedidoListComponent implements OnInit {
 
   ELEMENT_DATA: Pedido[] = []
+
+   // Supondo que a data de hoje seja obtida assim
+ hoje: string = format(new Date(), 'dd/MM/yyyy');
 
   pedido: Pedido = {
     id: '',
@@ -79,6 +83,12 @@ export class PedidoListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+ // Método para verificar se o botão deve ser desabilitado
+  isButtonDisabled(dataRegistro: string): boolean {
+    // Comparação para desabilitar o botão se a data de hoje for diferente de dataRegistro
+    return this.hoje !== dataRegistro;
   }
 
 }
