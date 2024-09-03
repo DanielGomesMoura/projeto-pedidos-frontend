@@ -1,0 +1,81 @@
+.container {
+    height: 100%;
+    background-image: url('/assets/images/imagem-relatorio.svg');
+    background-size: cover; /* Ajusta a imagem para cobrir todo o fundo do card */
+    background-position: center; /* Centraliza a imagem no card */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    width: 20rem;
+    margin: auto;
+    padding: 1rem 1rem;
+    background: transparent;
+    border-radius: 1rem;
+    backdrop-filter: blur(20px);
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.full-width {
+    width: 100%;
+}
+
+img {
+    height: 8rem;
+    width: 100%;
+    margin: auto auto 1.5rem auto;
+}
+
+input {
+    color: white;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.875);
+
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-text-fill-color: white;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+mat-label {
+    color: white;
+}
+
+mat-icon {
+    color: white;
+}
+
+.botao-salvar button {
+    width: 20rem;
+    border-radius: 2rem;
+    color: white;
+}
+
+mat-checkbox {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: white;
+}
+
+.lembrar {
+    display: flex;
+    justify-content: space-between;
+}

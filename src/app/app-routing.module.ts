@@ -11,9 +11,11 @@ import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-c
 import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { RankComponent } from './component/rank/rank.component';
 
 
 const routes: Routes = [
+   {path: 'rank', component: RankComponent},
    {path: 'login', component: LoginComponent},
    {
     path: '', component: NavComponent, canActivate: [AuthGuard], children:[
