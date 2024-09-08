@@ -12,6 +12,8 @@ import { PagamentoCreateComponent } from './component/pagamento/pagamento-create
 import { LoginComponent } from './component/login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { RankComponent } from './component/rank/rank.component';
+import { ContaListComponent } from './component/conta/conta-list/conta-list.component';
+import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
 
 
 const routes: Routes = [
@@ -31,10 +33,13 @@ const routes: Routes = [
 
       {path: 'pedidos',            component:  PedidoListComponent},
       {path: 'pedidos/create',     component:  PedidoCreateComponent},
-      {path: 'pedidos/update/:id', component: PedidoCreateComponent},
+      {path: 'pedidos/update/:id', component:  PedidoCreateComponent},
 
-      {path: 'pagamentos/:id',     component:  PagamentoCreateComponent}
+      {path: 'pagamentos/:id',     component:  PagamentoCreateComponent},
 
+      {path: 'contas',             component:  ContaListComponent},
+      {path: 'contas/create',      component:  ContaCreateComponent},
+      {path: 'contas/update/:id',  component:  ContaCreateComponent},
     ]
   } 
 ];

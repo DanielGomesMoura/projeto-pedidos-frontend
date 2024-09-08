@@ -1,0 +1,34 @@
+.container {
+    width: 90%;
+    margin: 1rem auto auto auto;
+}
+
+table {
+    width: 100%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    padding-right: 2rem;
+    text-align: right;
+}
+
+.create {
+    width: 11rem;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+}
+
+mat-icon-button {
+    padding-right: 1rem;
+}

@@ -46,6 +46,8 @@ import { PedidoCreateComponent } from './component/pedido/pedido-create/pedido-c
 import { PagamentoCreateComponent } from './component/pagamento/pagamento-create/pagamento-create.component';
 import { LoginComponent } from './component/login/login.component';
 import { RankComponent } from './component/rank/rank.component';
+import { ContaListComponent } from './component/conta/conta-list/conta-list.component';
+import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -64,7 +66,9 @@ registerLocaleData(localePt, 'pt-BR');
     PedidoCreateComponent,
     PagamentoCreateComponent,
     LoginComponent,
-    RankComponent
+    RankComponent,
+    ContaListComponent,
+    ContaCreateComponent
   ],
   imports: [
     BrowserModule,
