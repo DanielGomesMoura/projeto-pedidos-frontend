@@ -1,0 +1,33 @@
+.container{
+    width: 90%;
+    margin: 1rem auto auto auto;    
+    }
+    
+    table{
+        width: 100%;
+    }
+
+    .text-center {
+        text-align: center;
+      }
+      
+      .text-right {
+        text-align: right;
+      }
+
+    mat-form-field{
+    width: 100%;
+    }
+    
+    .create{
+        width: 11rem;
+    }
+    
+    h1{
+        width: 100%;
+        text-align: center;
+    }
+
+    #button-cadastro{
+      width: 22%;
+    }
