@@ -14,6 +14,8 @@ import { AuthGuard } from './auth/auth.guard';
 import { RankComponent } from './component/rank/rank.component';
 import { ContaListComponent } from './component/conta/conta-list/conta-list.component';
 import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
+import { TipoRecebimentoListComponent } from './component/tipo-recebimento-list/tipo-recebimento-list.component';
+import { TipoRecebimentoCreateComponent } from './component/tipo-recebimento-create/tipo-recebimento-create.component';
 
 
 const routes: Routes = [
@@ -40,6 +42,10 @@ const routes: Routes = [
       {path: 'contas',             component:  ContaListComponent},
       {path: 'contas/create',      component:  ContaCreateComponent},
       {path: 'contas/update/:id',  component:  ContaCreateComponent},
+
+      {path: 'recebimentos',       component:  TipoRecebimentoListComponent},
+      {path: 'recebimentos/create',component:  TipoRecebimentoCreateComponent},
+      {path: 'recebimentos/update/:id',component:  TipoRecebimentoCreateComponent},
     ]
   } 
 ];

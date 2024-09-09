@@ -1,9 +1,10 @@
+import { TipoRecebimentoService } from 'src/app/services/tipo-recebimento.service';
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { from } from 'rxjs';
+import { Tipo_Recebimento } from 'src/app/models/tipo-recebimento';
 import { PagamentoService } from 'src/app/services/pagamento.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 
@@ -16,12 +17,13 @@ export class PagamentoCreateComponent implements OnInit {
 
    pagamentoForm: FormGroup;
   isEditMode: boolean = false;
-  tipoPagamento: [] = [];
+  tipo_Recebimento: Tipo_Recebimento[] = [];
   pedidoId: number;
   valorTotal: number|string;
   valoresIguais: boolean = true;
 
   constructor(private service: PagamentoService,
+              private recebimentoService: TipoRecebimentoService,
               private toast: ToastrService, 
               private router: Router,
               private activatedRout: ActivatedRoute,
@@ -33,7 +35,7 @@ export class PagamentoCreateComponent implements OnInit {
       id:           new FormControl(null),
       pedido_fk:   new FormControl(null,Validators.required),
       valor_pagamento: new FormControl(null, Validators.required),
-      tipo_pagamento:  new FormControl(null, Validators.required),
+      tipo_recebimento_fk:  new FormControl(null, Validators.required),
       valor_total: new FormControl(null)
     });
    this.pedidoId = +this.activatedRout.snapshot.paramMap.get('id');
@@ -47,6 +49,13 @@ export class PagamentoCreateComponent implements OnInit {
       });
     }, error => {
       console.error('Erro ao obter detalhes do pedido', error);
+    });
+    this.findCliente();
+  }
+
+   findCliente():void{
+    this.recebimentoService.findAll().subscribe((data: Tipo_Recebimento[]) => {
+      this.tipo_Recebimento = data;
     });
   }
 

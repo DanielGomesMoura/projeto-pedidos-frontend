@@ -3,14 +3,14 @@
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Pagamento' : 'Cadastrar Pagamento' }}</h1>
 
         <mat-form-field appearance="legacy" class="fullWidth">
-            <mat-label>tipo Pagamento</mat-label>
-            <mat-select formControlName="tipo_pagamento">
-                <mat-option value="CREDITO">PIX</mat-option>
-                <mat-option value="CREDITO">DINHEIRO</mat-option>
-                <mat-option value="DEBITO">DEBITO</mat-option>
-                <mat-option value="CREDITO">CREDITO</mat-option>
+            <mat-label>Tipo de Pagamento</mat-label>
+            <mat-select formControlName="tipo_recebimento_fk">
+                <mat-option *ngFor="let tipo_Recebimento of tipo_Recebimento" [value]="tipo_Recebimento.id">
+                    {{ tipo_Recebimento.tipo }}
+                </mat-option>
             </mat-select>
         </mat-form-field>
+
         <mat-form-field appearance="legacy" id="valor_pagamento">
             <mat-label>Valor Pagamento</mat-label>
             <input type="text" name="valor_pagamento" formControlName="valor_pagamento"

@@ -48,7 +48,8 @@ import { LoginComponent } from './component/login/login.component';
 import { RankComponent } from './component/rank/rank.component';
 import { ContaListComponent } from './component/conta/conta-list/conta-list.component';
 import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
-
+import { TipoRecebimentoListComponent } from './component/tipo-recebimento-list/tipo-recebimento-list.component';
+import { TipoRecebimentoCreateComponent } from './component/tipo-recebimento-create/tipo-recebimento-create.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -68,7 +69,9 @@ registerLocaleData(localePt, 'pt-BR');
     LoginComponent,
     RankComponent,
     ContaListComponent,
-    ContaCreateComponent
+    ContaCreateComponent,
+    TipoRecebimentoListComponent,
+    TipoRecebimentoCreateComponent
   ],
   imports: [
     BrowserModule,
