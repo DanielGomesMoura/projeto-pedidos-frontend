@@ -16,6 +16,7 @@ import { ContaListComponent } from './component/conta/conta-list/conta-list.comp
 import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
 import { TipoRecebimentoListComponent } from './component/tipo-recebimento-list/tipo-recebimento-list.component';
 import { TipoRecebimentoCreateComponent } from './component/tipo-recebimento-create/tipo-recebimento-create.component';
+import { MovimentoCaixaListComponent } from './component/movimento-caixa/movimento-caixa-list/movimento-caixa-list.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,8 @@ const routes: Routes = [
       {path: 'recebimentos',       component:  TipoRecebimentoListComponent},
       {path: 'recebimentos/create',component:  TipoRecebimentoCreateComponent},
       {path: 'recebimentos/update/:id',component:  TipoRecebimentoCreateComponent},
+
+      {path: 'movimentos',       component:  MovimentoCaixaListComponent},
     ]
   } 
 ];

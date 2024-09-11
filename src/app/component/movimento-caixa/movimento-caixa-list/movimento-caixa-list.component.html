@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>Lista dos Movimentos</h1>
+    <button routerLink="create" class="create mat-elevation-z8" mat-raised-button color="primary">
+        <mat-icon style="width: 20%;">add_circle</mat-icon>
+        Cadastrar Produto</button>
+    <mat-form-field appearance="standard">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    </mat-form-field>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                <td mat-footer-cell *matFooterCellDef> Total </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descricao">
+                <th mat-header-cell *matHeaderCellDef> DESCRIÇÃO </th>
+                <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="conta">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> CONTA </th>
+                <td mat-cell *matCellDef="let element" class="text-center"> {{element.conta}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo_recebimento">
+                <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 20%;"> FORMA DE PAGAMENTO</th>
+                <td mat-cell *matCellDef="let element" class="text-center"> {{element.tipo_recebimento}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="data_registro">
+                <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 10%;"> DATA </th>
+                <td mat-cell *matCellDef="let element" class="text-center"> {{element.data_registro}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipo">
+                <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 10%;"> TIPO </th>
+                <td mat-cell *matCellDef="let element" class="text-center"
+                [ngStyle]="{ 'color': element.tipo === 'ENTRADA' ? 'green' : element.tipo === 'SAIDA' ? 'RED' : 'black',
+                'font-weight': 'bold'}"> {{element.tipo}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef class="text-right" style="width: 10%;"> VALOR </th>
+                <td mat-cell *matCellDef="let element" class="text-right"> {{element.valor}} </td>
+                <td mat-footer-cell *matFooterCellDef> {{getTotalCost()}} </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+            aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+</div>

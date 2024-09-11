@@ -50,6 +50,7 @@ import { ContaListComponent } from './component/conta/conta-list/conta-list.comp
 import { ContaCreateComponent } from './component/conta/conta-create/conta-create.component';
 import { TipoRecebimentoListComponent } from './component/tipo-recebimento-list/tipo-recebimento-list.component';
 import { TipoRecebimentoCreateComponent } from './component/tipo-recebimento-create/tipo-recebimento-create.component';
+import { MovimentoCaixaListComponent } from './component/movimento-caixa/movimento-caixa-list/movimento-caixa-list.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -71,7 +72,8 @@ registerLocaleData(localePt, 'pt-BR');
     ContaListComponent,
     ContaCreateComponent,
     TipoRecebimentoListComponent,
-    TipoRecebimentoCreateComponent
+    TipoRecebimentoCreateComponent,
+    MovimentoCaixaListComponent
   ],
   imports: [
     BrowserModule,
