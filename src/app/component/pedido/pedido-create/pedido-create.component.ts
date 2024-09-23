@@ -1,7 +1,7 @@
 import { ProdutoService } from './../../../services/produto.service';
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PedidoService } from 'src/app/services/pedido.service';
@@ -16,7 +16,7 @@ import { Produto } from 'src/app/models/produto';
 })
 export class PedidoCreateComponent implements OnInit {
 
-  pedidoForm: UntypedFormGroup;
+  pedidoForm: FormGroup;
   isEditMode: boolean = false;
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
@@ -31,11 +31,11 @@ export class PedidoCreateComponent implements OnInit {
               private produtoService: ProdutoService) { }
 
   ngOnInit(): void {
-    this.pedidoForm = new UntypedFormGroup({
-      id:           new UntypedFormControl(null),
-      cliente_fk:   new UntypedFormControl(null,Validators.required),
-      valor_total: new UntypedFormControl(null, Validators.required),
-      itensPedido:  new UntypedFormArray([])
+    this.pedidoForm = new FormGroup({
+      id:           new FormControl(null),
+      cliente_fk:   new FormControl(null,Validators.required),
+      valor_total: new FormControl(null, Validators.required),
+      itensPedido:  new FormArray([])
     });
 
     const id = this.activatedRout.snapshot.paramMap.get('id');
@@ -50,8 +50,8 @@ export class PedidoCreateComponent implements OnInit {
   }
 
   // Método para acessar o FormArray
-get itensPedido(): UntypedFormArray {
-  return this.pedidoForm.get('itensPedido') as UntypedFormArray;
+get itensPedido(): FormArray {
+  return this.pedidoForm.get('itensPedido') as FormArray;
 }
 
   findCliente():void{
@@ -75,18 +75,18 @@ get itensPedido(): UntypedFormArray {
       });
       
        // Obtenha o FormArray de itensPedido do pedidoForm
-    const itensPedidoArray = this.pedidoForm.get('itensPedido') as UntypedFormArray;
+    const itensPedidoArray = this.pedidoForm.get('itensPedido') as FormArray;
 
     // Limpe o FormArray existente (opcional, dependendo do seu caso de uso)
     itensPedidoArray.clear();
     // Adicione cada itemPedido ao FormArray
     resposta.itensPedido.forEach((item: any) => {
-      const itemFormGroup = new UntypedFormGroup({
-        id: new UntypedFormControl(item.id),
-        produto_fk: new UntypedFormControl(item.produto_fk),
-        descricao_produto: new UntypedFormControl(item.descricao_produto, Validators.required),
-        quantidade: new UntypedFormControl(item.quantidade, Validators.required),
-        valor_unitario: new UntypedFormControl(item.valor_unitario, Validators.required)
+      const itemFormGroup = new FormGroup({
+        id: new FormControl(item.id),
+        produto_fk: new FormControl(item.produto_fk),
+        descricao_produto: new FormControl(item.descricao_produto, Validators.required),
+        quantidade: new FormControl(item.quantidade, Validators.required),
+        valor_unitario: new FormControl(item.valor_unitario, Validators.required)
       });
 
       // Escuta as mudanças na quantidade
@@ -191,13 +191,13 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
     const produtoId = event.value;
     const produto = this.produtoMap.get(produtoId);
   if (produto) {
-    const itensPedidoArray = this.pedidoForm.get('itensPedido') as UntypedFormArray;
+    const itensPedidoArray = this.pedidoForm.get('itensPedido') as FormArray;
     // Cria um novo FormGroup para o item do pedido
-    const newItem = new UntypedFormGroup({
-      produto_fk: new UntypedFormControl(produtoId),
-      descricao_produto: new UntypedFormControl(produto.descricao, Validators.required),
-      quantidade: new UntypedFormControl(1, Validators.required),
-      valor_unitario: new UntypedFormControl(produto.valor_venda, Validators.required)
+    const newItem = new FormGroup({
+      produto_fk: new FormControl(produtoId),
+      descricao_produto: new FormControl(produto.descricao, Validators.required),
+      quantidade: new FormControl(1, Validators.required),
+      valor_unitario: new FormControl(produto.valor_venda, Validators.required)
     });
 
     // Adiciona o novo FormGroup ao FormArray

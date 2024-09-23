@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService } from 'src/app/services/produto.service';
@@ -12,7 +12,7 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class ProdutoCreateComponent implements OnInit {
 
-  produtoForm: UntypedFormGroup;
+  produtoForm: FormGroup;
 
   isEditMode: boolean = false;
 
@@ -23,13 +23,13 @@ export class ProdutoCreateComponent implements OnInit {
               private currencyPipe: CurrencyPipe ) { }
 
   ngOnInit(): void {
-    this.produtoForm = new UntypedFormGroup({
-      id:          new UntypedFormControl(null),
-      descricao:   new UntypedFormControl(null,Validators.minLength(3)),
-      unidade:     new UntypedFormControl(null, Validators.required),
-      valor_custo: new UntypedFormControl(null, Validators.required),
-      valor_venda: new UntypedFormControl(null, Validators.required),
-      valor_promocional: new UntypedFormControl(null, Validators.required)
+    this.produtoForm = new FormGroup({
+      id:          new FormControl(null),
+      descricao:   new FormControl(null,Validators.minLength(3)),
+      unidade:     new FormControl(null, Validators.required),
+      valor_custo: new FormControl(null, Validators.required),
+      valor_venda: new FormControl(null, Validators.required),
+      valor_promocional: new FormControl(null, Validators.required)
     })
 
     const id = this.activatedRout.snapshot.paramMap.get('id');

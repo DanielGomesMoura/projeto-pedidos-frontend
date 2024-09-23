@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from '../../../models/cliente';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -12,7 +12,7 @@ import { ClienteService } from 'src/app/services/cliente.service';
 })
 export class ClienteCreateComponent implements OnInit {
 
-  clienteForm: UntypedFormGroup;
+  clienteForm: FormGroup;
 
   isEditMode: boolean = false;
 
@@ -23,10 +23,10 @@ export class ClienteCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // Inicializando o FormGroup com os FormControl correspondentes
-    this.clienteForm = new UntypedFormGroup({
-      id: new UntypedFormControl(null),
-      nome: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
-      email: new UntypedFormControl(null, [Validators.required, Validators.email])
+    this.clienteForm = new FormGroup({
+      id: new FormControl(null),
+      nome: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      email: new FormControl(null, [Validators.required, Validators.email])
     });
 
     // Verifica se está no modo de edição

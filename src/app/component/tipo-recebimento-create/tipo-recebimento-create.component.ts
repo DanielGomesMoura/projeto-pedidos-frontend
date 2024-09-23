@@ -1,6 +1,6 @@
 import { Conta } from './../../models/conta';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContaService } from 'src/app/services/conta.service';
@@ -13,7 +13,7 @@ import { TipoRecebimentoService } from 'src/app/services/tipo-recebimento.servic
 })
 export class TipoRecebimentoCreateComponent implements OnInit {
 
- tipo_recebimentoForm: UntypedFormGroup;
+ tipo_recebimentoForm: FormGroup;
  conta: Conta[] = [];
 
   isEditMode: boolean = false;
@@ -26,10 +26,10 @@ export class TipoRecebimentoCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // Inicializando o FormGroup com os FormControl correspondentes
-    this.tipo_recebimentoForm = new UntypedFormGroup({
-      id: new UntypedFormControl(null),
-      conta_fk:   new UntypedFormControl(null,Validators.required),
-      tipo: new UntypedFormControl(null,Validators.required),
+    this.tipo_recebimentoForm = new FormGroup({
+      id: new FormControl(null),
+      conta_fk:   new FormControl(null,Validators.required),
+      tipo: new FormControl(null,Validators.required),
     });
 
     // Verifica se está no modo de edição
