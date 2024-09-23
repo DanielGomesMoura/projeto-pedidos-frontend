@@ -1,9 +1,9 @@
 import { MovimentoCaixa } from './../../../models/movimento-caixa';
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { MatPaginator as MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { MovimentoCaixaService } from 'src/app/services/movimento-caixa.service';
 
