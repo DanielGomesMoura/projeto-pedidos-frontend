@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContaService } from 'src/app/services/conta.service';
@@ -11,7 +11,7 @@ import { ContaService } from 'src/app/services/conta.service';
 })
 export class ContaCreateComponent implements OnInit {
 
-   contaForm: FormGroup;
+   contaForm: UntypedFormGroup;
 
   isEditMode: boolean = false;
 
@@ -22,9 +22,9 @@ export class ContaCreateComponent implements OnInit {
 
   ngOnInit(): void {
     // Inicializando o FormGroup com os FormControl correspondentes
-    this.contaForm = new FormGroup({
-      id: new FormControl(null),
-      conta: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+    this.contaForm = new UntypedFormGroup({
+      id: new UntypedFormControl(null),
+      conta: new UntypedFormControl(null, [Validators.required, Validators.minLength(3)]),
     });
 
     // Verifica se está no modo de edição

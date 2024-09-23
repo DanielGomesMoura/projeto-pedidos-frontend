@@ -1,7 +1,7 @@
 import { TipoRecebimentoService } from 'src/app/services/tipo-recebimento.service';
 import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tipo_Recebimento } from 'src/app/models/tipo-recebimento';
@@ -15,7 +15,7 @@ import { PedidoService } from 'src/app/services/pedido.service';
 })
 export class PagamentoCreateComponent implements OnInit {
 
-   pagamentoForm: FormGroup;
+   pagamentoForm: UntypedFormGroup;
   isEditMode: boolean = false;
   tipo_Recebimento: Tipo_Recebimento[] = [];
   pedidoId: number;
@@ -31,12 +31,12 @@ export class PagamentoCreateComponent implements OnInit {
               private pedidoService: PedidoService) { }
 
   ngOnInit(): void {
-    this.pagamentoForm = new FormGroup({
-      id:           new FormControl(null),
-      pedido_fk:   new FormControl(null,Validators.required),
-      valor_pagamento: new FormControl(null, Validators.required),
-      tipo_recebimento_fk:  new FormControl(null, Validators.required),
-      valor_total: new FormControl(null)
+    this.pagamentoForm = new UntypedFormGroup({
+      id:           new UntypedFormControl(null),
+      pedido_fk:   new UntypedFormControl(null,Validators.required),
+      valor_pagamento: new UntypedFormControl(null, Validators.required),
+      tipo_recebimento_fk:  new UntypedFormControl(null, Validators.required),
+      valor_total: new UntypedFormControl(null)
     });
    this.pedidoId = +this.activatedRout.snapshot.paramMap.get('id');
     // Obtendo os detalhes do pedido usando o ID
