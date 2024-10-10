@@ -2,7 +2,7 @@
     <form [formGroup]="contaForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Conta' : 'Cadastrar Conta' }}</h1>
 
-        <mat-form-field appearance="legacy" class="fullWidth">
+        <mat-form-field  class="fullWidth">
             <mat-label>Conta</mat-label>
             <input name="conta" id="mat-conta" formControlName="conta" required matInput placeholder="Digite sua Conta.."
                 maxlength="50">

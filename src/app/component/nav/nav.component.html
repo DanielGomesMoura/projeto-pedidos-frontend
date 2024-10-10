@@ -1,38 +1,38 @@
 <mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" mode="side">
         <mat-nav-list class="nav-list">
-        <a mat-list-item routerLink="/home">
-            <i class="material-icons">home</i>
-            Home
-        </a>
-        <a mat-list-item routerLink="/clientes">
-            <i class="material-icons">person</i>
-            Clientes
-        </a>
-        <a mat-list-item routerLink="produtos">
-            <i class="material-icons">account_circle</i>
-            Produtos
-        </a>
-        <a mat-list-item routerLink="contas">
-            <i class="material-icons">account_circle</i>
-            Contas
-        </a>
-        <a mat-list-item routerLink="recebimentos">
-            <i class="material-icons">account_circle</i>
-            Tipo de Recebimentos
-        </a>
-        <a mat-list-item routerLink="movimentos">
-            <i class="material-icons">account_circle</i>
-            Movimentos
-        </a>
-        <a mat-list-item routerLink="pedidos">
-            <i class="material-icons">code</i>
-            Pedidos
-        </a>
-        <a mat-list-item (click)="logout()">
-            <i class="material-icons">logout</i>
-            Logout
-        </a>
+         <a mat-list-item routerLink="/home">
+          <mat-icon>home</mat-icon>
+          <span class="cor">Home</span>
+         </a>
+            <a mat-list-item routerLink="/clientes">
+            <mat-icon>person</mat-icon>
+            <span class="cor">Clientes</span>
+         </a>
+         <a mat-list-item routerLink="produtos">
+            <mat-icon>account_circle</mat-icon>
+            <span class="cor">Produtos</span>
+         </a>
+         <a mat-list-item routerLink="contas">
+            <mat-icon>account_circle</mat-icon>
+            <span class="cor">Contas</span>
+         </a>
+         <a mat-list-item routerLink="recebimentos">
+            <mat-icon>account_circle</mat-icon>
+            <span class="cor">Tipo de Recebimentos</span>
+         </a>
+         <a mat-list-item routerLink="movimentos">
+            <mat-icon>account_circle</mat-icon>
+            <span class="cor">Movimentos</span>
+         </a>
+         <a mat-list-item routerLink="pedidos">
+            <mat-icon>code</mat-icon>
+            <span class="cor">Pedidos</span>
+         </a>
+         <a mat-list-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span class="cor">Logout</span>
+         </a>
         </mat-nav-list>
     </mat-drawer>
     <div class="sidenav-content">

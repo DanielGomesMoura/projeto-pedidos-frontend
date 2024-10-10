@@ -2,7 +2,7 @@
     <form [formGroup]="pedidoForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Pedido' : 'Cadastrar Pedido' }}</h1>
 
-            <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-form-field  class="fullWidth">
             <mat-label>cliente</mat-label>
             <mat-select formControlName="cliente_fk">
               <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">
@@ -11,7 +11,7 @@
               </mat-select>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>Produto</mat-label>
             <mat-select (selectionChange)="onProdutoChange($event)">
               <mat-option *ngFor="let produto of produtos" [value]="produto.id">
@@ -22,15 +22,15 @@
           
        <div formArrayName="itensPedido" >
          <div *ngFor="let item of itensPedido.controls; let i = index" [formGroupName]="i">
-          <mat-form-field appearance="legacy" id="produto">
+          <mat-form-field  id="produto">
             <input matInput type="text" formControlName="descricao_produto" readonly="true" placeholder="produto">
           </mat-form-field>
 
-         <mat-form-field appearance="legacy" id="quantidade" class="direita">
+         <mat-form-field  id="quantidade" class="direita">
             <input matInput type="number" formControlName="quantidade" min="1" placeholder="quantidade" >
           </mat-form-field>
 
-            <mat-form-field appearance="legacy" class="direita" id="valor_unitario">
+            <mat-form-field  class="direita" id="valor_unitario">
               <mat-label>valor unitário</mat-label>
               <input type="text" name="valor_unitario" formControlName="valor_unitario" readonly="true" matInput>
               <mat-icon matSuffix>attach_money</mat-icon>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>valor_total</mat-label>
             <input type="text" 
              name="valor_total" formControlName="valor_total" 

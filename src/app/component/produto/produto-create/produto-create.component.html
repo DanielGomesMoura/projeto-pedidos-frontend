@@ -2,7 +2,7 @@
     <form [formGroup]="produtoForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Produto' : 'Cadastrar Produto' }}</h1>
 
-            <mat-form-field appearance="legacy" class="fullWidth">
+            <mat-form-field  class="fullWidth">
             <mat-label>Descrição</mat-label>
             <input name="descricao" formControlName="descricao"
              required 
@@ -12,7 +12,7 @@
             <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>Unidade</mat-label>
             <mat-select name="unidade" formControlName="unidade" required>
               <mat-option value="UN">UNIDADE</mat-option>
@@ -20,7 +20,7 @@
             <mat-icon matSuffix>tab</mat-icon>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>valor Custo</mat-label>
             <input type="text" 
              name="valor_custo" formControlName="valor_custo" 
@@ -34,7 +34,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>Valor Venda</mat-label>
             <input type="text"
             required
@@ -48,7 +48,7 @@
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="legacy" class="fullWidth">
+          <mat-form-field  class="fullWidth">
             <mat-label>valor Promocional</mat-label>
             <input type="text" name="valor_promocional" formControlName="valor_promocional" required matInput placeholder="ex..: 0,00"
               (keyup)="moeda('valor_promocional',$event.target)">

@@ -2,7 +2,7 @@
     <form [formGroup]="tipo_recebimentoForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Tipo de Recebimento' : 'Cadastrar Tipo de Recebimento' }}</h1>
 
-        <mat-form-field appearance="legacy" class="fullWidth">
+        <mat-form-field  class="fullWidth">
             <mat-label>Conta</mat-label>
             <mat-select formControlName="conta_fk">
                 <mat-option *ngFor="let conta of conta" [value]="conta.id">
@@ -11,7 +11,7 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="legacy" class="fullWidth">
+        <mat-form-field  class="fullWidth">
             <mat-label>Tipo de Pagamento</mat-label>
             <mat-select formControlName="tipo">
                 <mat-option value="PIX">PIX</mat-option>
