@@ -14,8 +14,7 @@
             <input name="email" formControlName="email" required matInput placeholder="ex..: nome@email.com">
             <mat-icon matSuffix>email</mat-icon>
           </mat-form-field>
-
-          <button (click)="save()" [disabled]="!validaCampos()" class="fullWidth mat-elevation-z4" mat-raised-button color="primary">
+          <button mat-raised-button (click)="save()" [disabled]="!validaCampos()" class="fullWidth" color="primary">
             {{ isEditMode ? 'Atualizar' : 'Cadastrar' }}</button>
             <button routerLink="/clientes" class="fullWidth mat-elevation-z4" mat-raised-button color="warn">
                 Cancelar</button>

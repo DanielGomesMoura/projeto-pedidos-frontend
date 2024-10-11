@@ -1,9 +1,10 @@
 <div class="container">
     <h1>Lista de Clientes</h1>
-    <button routerLink="create" class="create mat-elevation-z8" mat-raised-button color="primary">
-      <mat-icon style="width: 20%;">add_circle</mat-icon>
-      Cadastrar Cliente</button>
-    <mat-form-field >
+    <button routerLink="create" mat-fab extended color="primary">
+      <mat-icon>add_circle</mat-icon>
+      Cadastrar Cliente
+    </button>
+    <mat-form-field appearance="fill">
       <mat-label>Filter</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
