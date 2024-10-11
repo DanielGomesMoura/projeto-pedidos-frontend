@@ -92,10 +92,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "brigadeiro:build:production"
+              "buildTarget": "brigadeiro:build:production"
             },
             "development": {
-              "browserTarget": "brigadeiro:build:development"
+              "buildTarget": "brigadeiro:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -103,7 +103,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "brigadeiro:build"
+            "buildTarget": "brigadeiro:build"
           }
         }
       }
