@@ -1,32 +1,32 @@
 <mat-drawer-container class="container" autosize>
     <mat-drawer #drawer class="sidenav" mode="side">
         <mat-nav-list class="nav-list">
-         <a mat-list-item routerLink="/home">
-          <mat-icon>home</mat-icon>
-          <span class="cor">Home</span>
-         </a>
+      <a mat-list-item routerLink="/home">
+         <mat-icon matListItemIcon>home</mat-icon>
+         <span class="cor">Home</span>
+      </a>
             <a mat-list-item routerLink="/clientes">
-            <mat-icon>person</mat-icon>
-            <span class="cor">Clientes</span>
-         </a>
+               <mat-icon matListItemIcon>person</mat-icon>
+               <span class="cor">Cliente</span>
+            </a>
          <a mat-list-item routerLink="produtos">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon matListItemIcon>account_circle</mat-icon>
             <span class="cor">Produtos</span>
          </a>
          <a mat-list-item routerLink="contas">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon matListItemIcon>account_circle</mat-icon>
             <span class="cor">Contas</span>
          </a>
          <a mat-list-item routerLink="recebimentos">
-            <mat-icon>account_circle</mat-icon>
-            <span class="cor">Tipo de Recebimentos</span>
+            <mat-icon matListItemIcon>account_circle</mat-icon>
+            <span class="cor">Recebimentos</span>
          </a>
          <a mat-list-item routerLink="movimentos">
-            <mat-icon>account_circle</mat-icon>
+            <mat-icon matListItemIcon>account_circle</mat-icon>
             <span class="cor">Movimentos</span>
          </a>
          <a mat-list-item routerLink="pedidos">
-            <mat-icon>code</mat-icon>
+            <mat-icon matListItemIcon>code</mat-icon>
             <span class="cor">Pedidos</span>
          </a>
          <a mat-list-item (click)="logout()">
