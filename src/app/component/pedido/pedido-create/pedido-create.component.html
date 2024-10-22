@@ -23,15 +23,17 @@
        <div formArrayName="itensPedido" >
          <div *ngFor="let item of itensPedido.controls; let i = index" [formGroupName]="i">
           <mat-form-field  id="produto">
+            <mat-label>item</mat-label>
             <input matInput type="text" formControlName="descricao_produto" readonly="true" placeholder="produto">
           </mat-form-field>
 
          <mat-form-field  id="quantidade" class="direita">
+          <mat-label>quantidade</mat-label>
             <input matInput type="number" formControlName="quantidade" min="1" placeholder="quantidade" >
           </mat-form-field>
 
             <mat-form-field  class="direita" id="valor_unitario">
-              <mat-label>valor unitário</mat-label>
+              <mat-label>valor</mat-label>
               <input type="text" name="valor_unitario" formControlName="valor_unitario" readonly="true" matInput>
               <mat-icon matSuffix>attach_money</mat-icon>
             </mat-form-field>

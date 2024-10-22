@@ -84,9 +84,9 @@ get itensPedido(): FormArray {
       const itemFormGroup = new FormGroup({
         id: new FormControl(item.id),
         produto_fk: new FormControl(item.produto_fk),
-        descricao_produto: new FormControl(item.descricao_produto, Validators.required),
-        quantidade: new FormControl(item.quantidade, Validators.required),
-        valor_unitario: new FormControl(item.valor_unitario, Validators.required)
+        descricao_produto: new FormControl(item.descricao_produto),
+        quantidade: new FormControl(item.quantidade),
+        valor_unitario: new FormControl(item.valor_unitario)
       });
 
       // Escuta as mudanças na quantidade
@@ -195,9 +195,9 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
     // Cria um novo FormGroup para o item do pedido
     const newItem = new FormGroup({
       produto_fk: new FormControl(produtoId),
-      descricao_produto: new FormControl(produto.descricao, Validators.required),
-      quantidade: new FormControl(1, Validators.required),
-      valor_unitario: new FormControl(produto.valor_venda, Validators.required)
+      descricao_produto: new FormControl(produto.descricao),
+      quantidade: new FormControl(1),
+      valor_unitario: new FormControl(produto.valor_venda)
     });
 
     // Adiciona o novo FormGroup ao FormArray
