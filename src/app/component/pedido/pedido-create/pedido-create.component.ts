@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { DatePipe } from '@angular/common';
 import { Cliente } from 'src/app/models/cliente';
 import { Produto } from 'src/app/models/produto';
 
@@ -17,6 +18,7 @@ import { Produto } from 'src/app/models/produto';
 export class PedidoCreateComponent implements OnInit {
 
   pedidoForm: FormGroup;
+  isDateDisabled: boolean = true; // Inicialmente desabilitado
   isEditMode: boolean = false;
   clientes: Cliente[] = [];
   produtos: Produto[] = [];
@@ -28,14 +30,16 @@ export class PedidoCreateComponent implements OnInit {
               private router: Router,
               private activatedRout: ActivatedRoute,
               private currencyPipe: CurrencyPipe,
-              private produtoService: ProdutoService) { }
+              private produtoService: ProdutoService,
+              private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.pedidoForm = new FormGroup({
-      id:           new FormControl(null),
-      cliente_fk:   new FormControl(null,Validators.required),
-      valor_total: new FormControl(null, Validators.required),
-      itensPedido:  new FormArray([])
+      id:            new FormControl(null),
+      cliente_fk:    new FormControl(null,Validators.required),
+      valor_total:   new FormControl(null, Validators.required),
+      data_registro: new FormControl({ value: null,disabled: true}, Validators.required), // Inicialmente desabilitado
+      itensPedido:   new FormArray([])
     });
 
     const id = this.activatedRout.snapshot.paramMap.get('id');
@@ -72,6 +76,7 @@ get itensPedido(): FormArray {
       this.pedidoForm.patchValue({
         cliente_fk: resposta.cliente_fk,
         valor_total: this.formatarMoeda(resposta.valor_total),
+        data_registro: resposta.data_registro
       });
       
        // Obtenha o FormArray de itensPedido do pedidoForm
@@ -155,10 +160,12 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
   }
 
   create(): void {
+    this.pedidoForm.get('data_registro')?.enable();
     const formValue = this.pedidoForm.value;
-    
+
    // Converte os valores formatados de volta para double
    formValue.valor_total = this.parseMoeda(formValue.valor_total);
+   formValue.data_registro = this.datePipe.transform(formValue.data_registro, 'dd/MM/yyyy');
 
      // Se `itensPedido` estiver presente, garanta que seja um array válido
   if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
@@ -233,4 +240,13 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
       valor_total: this.formatarMoeda(valorTotal),
     }); 
   }
+
+  
+  dateFilter(date) {
+     if (!date) {
+        return true; // Permite que todas as datas sejam válidas até que uma seja selecionada
+    }
+    const day = date.getDay();
+    return day != 0 && day != 6;
+}
 }

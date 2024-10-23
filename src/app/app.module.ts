@@ -27,7 +27,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatListModule} from "@angular/material/list";
 import {MatCardModule} from "@angular/material/card";
-import { registerLocaleData } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import { DatePipe } from '@angular/common';
+import {registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
 //Componentes do Projeto
@@ -93,6 +96,7 @@ registerLocaleData(localePt, 'pt-BR');
     MatTableModule,
     MatRadioModule,
     MatInputModule,
+    MatDatepickerModule,
     MatIconModule,
     MatListModule,
     MatCardModule,
@@ -106,7 +110,9 @@ registerLocaleData(localePt, 'pt-BR');
   ],
   providers: [
     CurrencyPipe,
+    DatePipe,
     AuthInterceptorProvider,
+    provideNativeDateAdapter(),
     {provide: LOCALE_ID, useValue: 'pt-BR'}
   ],
   bootstrap: [AppComponent]
