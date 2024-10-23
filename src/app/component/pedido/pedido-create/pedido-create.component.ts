@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ClienteService } from 'src/app/services/cliente.service';
-import { DatePipe } from '@angular/common';
 import { Cliente } from 'src/app/models/cliente';
 import { Produto } from 'src/app/models/produto';
+import { DatePipe } from '@angular/common';
+import { parse } from 'date-fns';
 
 @Component({
   selector: 'app-pedido-create',
@@ -34,11 +35,12 @@ export class PedidoCreateComponent implements OnInit {
               private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    const dataAtual = new Date(); // Não é necessário formatar aqui
     this.pedidoForm = new FormGroup({
       id:            new FormControl(null),
       cliente_fk:    new FormControl(null,Validators.required),
       valor_total:   new FormControl(null, Validators.required),
-      data_registro: new FormControl({ value: null,disabled: true}, Validators.required), // Inicialmente desabilitado
+      data_registro: new FormControl(dataAtual, Validators.required),//new FormControl(null, Validators.required), // Inicialmente desabilitado
       itensPedido:   new FormArray([])
     });
 
@@ -72,11 +74,12 @@ get itensPedido(): FormArray {
   }
 
   findById(id: string): void{
+   
     this.service.findById(id).subscribe(resposta =>{
       this.pedidoForm.patchValue({
         cliente_fk: resposta.cliente_fk,
         valor_total: this.formatarMoeda(resposta.valor_total),
-        data_registro: resposta.data_registro
+        data_registro: parse(resposta.data_registro, 'dd/MM/yyyy', new Date())
       });
       
        // Obtenha o FormArray de itensPedido do pedidoForm
@@ -133,8 +136,9 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
   update(): void {
     const formValue = this.pedidoForm.value;
 
-  // Converte os valores formatados de volta para double
-  formValue.valor_total = this.parseMoeda(formValue.valor_total);
+    formValue.data_registro = this.datePipe.transform(formValue.data_registro, 'dd/MM/yyyy');
+   // Converte os valores formatados de volta para double
+   formValue.valor_total = this.parseMoeda(formValue.valor_total);
 
   // Se `itensPedido` estiver presente, garanta que seja um array válido
 if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
@@ -160,9 +164,7 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
   }
 
   create(): void {
-    this.pedidoForm.get('data_registro')?.enable();
     const formValue = this.pedidoForm.value;
-
    // Converte os valores formatados de volta para double
    formValue.valor_total = this.parseMoeda(formValue.valor_total);
    formValue.data_registro = this.datePipe.transform(formValue.data_registro, 'dd/MM/yyyy');
