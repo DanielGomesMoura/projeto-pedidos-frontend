@@ -43,8 +43,8 @@
                 <div class="teste">
                 <button [routerLink]="['update',element.id]" 
                  class="primary" mat-icon-button  
-                 color="primary">
-                 <!--[disabled]="element.status === 'PAGO' || isButtonDisabled(element.data_registro)"--> 
+                 color="primary"
+                 [disabled]="element.status === 'PAGO'"> 
                   <mat-icon class="edit">edit</mat-icon>
               </button>
 
@@ -70,19 +70,38 @@
                 </td>
               </ng-container>
               
-            <ng-container matColumnDef="expandedDetail">
-              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
-                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                <div *ngIf="expandedElement === element">
-                  <div *ngFor="let item of element.itensPedido" class="example-element-diagram">
-                    <div>Descrição: {{item.descricao_produto}}</div>
-                    <div>Quantidade: {{item.quantidade}}</div>
-                    <div>Valor Unitário: {{item.valor_unitario}}</div>
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                  <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                    <div *ngIf="expandedElement === element">
+                      <!-- Tabela de detalhes dentro da linha expandida -->
+                      <table mat-table [dataSource]="element.itensPedido" class="inner-table">
+                        
+                        <!-- Coluna Descrição -->
+                        <ng-container matColumnDef="descricao">
+                          <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                          <td mat-cell *matCellDef="let item"> {{ item.descricao_produto }} </td>
+                        </ng-container>
+              
+                        <!-- Coluna Quantidade -->
+                        <ng-container matColumnDef="quantidade">
+                          <th mat-header-cell *matHeaderCellDef> Quantidade </th>
+                          <td mat-cell *matCellDef="let item"> {{ item.quantidade }} </td>
+                        </ng-container>
+              
+                        <!-- Coluna Valor Unitário -->
+                        <ng-container matColumnDef="valorUnitario">
+                          <th mat-header-cell *matHeaderCellDef> Valor Unitário </th>
+                          <td mat-cell *matCellDef="let item"> {{ item.valor_unitario | currency:'BRL' }} </td>
+                        </ng-container>
+              
+                        <tr mat-header-row *matHeaderRowDef="['descricao', 'quantidade', 'valorUnitario']"></tr>
+                        <tr mat-row *matRowDef="let item; columns: ['descricao', 'quantidade', 'valorUnitario']"></tr>
+                      </table>
+                    </div>
                   </div>
-                </div>
-                </div>
-              </td>
-            </ng-container>
+                </td>
+              </ng-container>
               
           <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
           <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
