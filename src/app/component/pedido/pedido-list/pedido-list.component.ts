@@ -8,11 +8,20 @@ import { PedidoService } from 'src/app/services/pedido.service';
 import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 
 @Component({
   selector: 'app-pedido-list',
   templateUrl: './pedido-list.component.html',
-  styleUrls: ['./pedido-list.component.css']
+  styleUrl: './pedido-list.component.css',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed,void', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class PedidoListComponent implements OnInit {
 
@@ -31,6 +40,8 @@ export class PedidoListComponent implements OnInit {
   }
 
   displayedColumns: string[] = ['id', 'cliente', 'data_registro', 'valor_total', 'status', 'acoes'];
+  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
+  expandedElement: any | null;
   dataSource = new MatTableDataSource<Pedido>(this.ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;

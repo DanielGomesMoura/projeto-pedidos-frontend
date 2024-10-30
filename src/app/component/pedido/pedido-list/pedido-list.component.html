@@ -9,8 +9,7 @@
       <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
     </mat-form-field>
       <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource">
-        
+          <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
             <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef> ID </th>
               <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -56,9 +55,41 @@
               </div>
              </td>
             </ng-container>
-        
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+              <ng-container matColumnDef="expand">
+                <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
+                <td mat-cell *matCellDef="let element">
+                  <button mat-icon-button aria-label="expand row"
+                    (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">
+                    @if (expandedElement === element) {
+                    <mat-icon>keyboard_arrow_up</mat-icon>
+                    } @else {
+                    <mat-icon>keyboard_arrow_down</mat-icon>
+                    }
+                  </button>
+                </td>
+              </ng-container>
+              
+            <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div *ngIf="expandedElement === element">
+                  <div *ngFor="let item of element.itensPedido" class="example-element-diagram">
+                    <div>Descrição: {{item.descricao_produto}}</div>
+                    <div>Quantidade: {{item.quantidade}}</div>
+                    <div>Valor Unitário: {{item.valor_unitario}}</div>
+                  </div>
+                </div>
+                </div>
+              </td>
+            </ng-container>
+              
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+          <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+          </tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
           </table>
           <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                          showFirstLastButtons 

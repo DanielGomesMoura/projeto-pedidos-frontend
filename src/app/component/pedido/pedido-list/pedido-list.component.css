@@ -36,3 +36,51 @@
     .teste{
       display: flex;
     }
+
+    /*css para expandir tabela*/
+    
+        tr.example-detail-row {
+          height: 0;
+          /* A linha de detalhes começa com altura 0 */
+        }
+    
+        tr.example-element-row:not(.example-expanded-row):hover {
+          background: whitesmoke;
+          /* Cor de fundo ao passar o mouse */
+        }
+    
+        tr.example-element-row:not(.example-expanded-row):active {
+          background: #efefef;
+          /* Cor de fundo quando ativo */
+        }
+    
+        .example-element-row td {
+          border-bottom-width: 0;
+          /* Remove a borda inferior nas linhas */
+        }
+    
+        .example-element-detail {
+          overflow: hidden;
+          /* Garante que o conteúdo não transborde */
+          display: flex;
+          /* Exibe o conteúdo em um layout flexível */
+        }
+    
+        .example-element-symbol {
+          font-weight: bold;
+          /* Símbolo em negrito */
+          font-size: 40px;
+          /* Tamanho da fonte do símbolo */
+          line-height: normal;
+          /* Alinhamento de linha normal */
+        }
+    
+        .example-element-description {
+          padding: 16px;
+          /* Espaçamento interno para a descrição */
+        }
+    
+        .example-element-description-attribution {
+          opacity: 0.5;
+          /* Opacidade reduzida para atribuição */
+        }
