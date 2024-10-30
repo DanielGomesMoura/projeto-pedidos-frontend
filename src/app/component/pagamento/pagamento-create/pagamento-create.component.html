@@ -2,6 +2,14 @@
     <form [formGroup]="pagamentoForm" class="form">
         <h1 class="fullWidth">{{ isEditMode ? 'Atualizar Pagamento' : 'Cadastrar Pagamento' }}</h1>
 
+        <mat-form-field color="accent">
+            <mat-label>Data</mat-label>
+            <input matInput [matDatepicker]="picker1" readonly="true" [matDatepickerFilter]="dateFilter" formControlName="data_registro_pagamento" >
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          
         <mat-form-field  class="fullWidth">
             <mat-label>Tipo de Pagamento</mat-label>
             <mat-select formControlName="tipo_recebimento_fk">

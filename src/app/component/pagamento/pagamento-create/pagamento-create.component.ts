@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Tipo_Recebimento } from 'src/app/models/tipo-recebimento';
 import { PagamentoService } from 'src/app/services/pagamento.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { DatePipe } from '@angular/common';
+import { parse } from 'date-fns';
 
 @Component({
   selector: 'app-pagamento-create',
@@ -20,6 +22,7 @@ export class PagamentoCreateComponent implements OnInit {
   tipo_Recebimento: Tipo_Recebimento[] = [];
   pedidoId: number;
   valorTotal: number|string;
+  dataRegistro: Date;
   valoresIguais: boolean = true;
 
   constructor(private service: PagamentoService,
@@ -28,7 +31,8 @@ export class PagamentoCreateComponent implements OnInit {
               private router: Router,
               private activatedRout: ActivatedRoute,
               private currencyPipe: CurrencyPipe,
-              private pedidoService: PedidoService) { }
+              private pedidoService: PedidoService,
+              private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.pagamentoForm = new FormGroup({
@@ -36,24 +40,24 @@ export class PagamentoCreateComponent implements OnInit {
       pedido_fk:   new FormControl(null,Validators.required),
       valor_pagamento: new FormControl(null, Validators.required),
       tipo_recebimento_fk:  new FormControl(null, Validators.required),
-      valor_total: new FormControl(null)
+      valor_total: new FormControl(null),
+      data_registro_pagamento: new FormControl(null, Validators.required)
     });
    this.pedidoId = +this.activatedRout.snapshot.paramMap.get('id');
     // Obtendo os detalhes do pedido usando o ID
-    this.pedidoService.findById(this.pedidoId).subscribe(data => {
-      this.valorTotal = data.valor_total; // Ajuste conforme a estrutura do seu retorno
-      //passa o valortotal para o componente para ser renderizado
+    this.pedidoService.findById(this.pedidoId).subscribe(resposta => {      
       this.pagamentoForm.patchValue({
-        valor_total: this.formatarMoeda(this.valorTotal),
+        valor_total: this.formatarMoeda(resposta.valor_total),
+        data_registro_pagamento: parse(resposta.data_registro, 'dd/MM/yyyy', new Date()), 
         pedido_fk: this.pedidoId
       });
     }, error => {
       console.error('Erro ao obter detalhes do pedido', error);
     });
-    this.findCliente();
+    this.findRecebimento();
   }
 
-   findCliente():void{
+   findRecebimento():void{
     this.recebimentoService.findAll().subscribe((data: Tipo_Recebimento[]) => {
       this.tipo_Recebimento = data;
     });
@@ -106,6 +110,7 @@ validarMoeda(control: any): { [key: string]: boolean } | null {
    formValue.valor_pagamento = this.parseMoeda(formValue.valor_pagamento);
    formValue.valor_total = this.parseMoeda(formValue.valor_total);
    formValue.pedido_fk = this.pedidoId;
+   formValue.data_registro_pagamento = this.datePipe.transform(formValue.data_registro_pagamento, 'dd/MM/yyyy');
 
     this.service.create(formValue).subscribe(resposta => {
       this.toast.success('Pagamento cadastrado com sucesso');
@@ -130,5 +135,24 @@ validarMoeda(control: any): { [key: string]: boolean } | null {
   validaCampos(): boolean { 
     return this.pagamentoForm.valid
   }
+
+  dateFilter = (date: Date | null): boolean => {
+    
+    if(!date){
+      return true
+    }
+    
+    this.dataRegistro = new Date(this.pagamentoForm.get('data_registro_pagamento')?.value);
+  
+    const day = date.getDay();
+    // Desabilita finais de semana (domingo e sábado)
+    const isWeekend = day === 0 || day === 6;
+    
+    // Verifica se a data é posterior ou igual à data do pedido
+    const isAfterPedidoDate = date >= this.dataRegistro;
+
+    // Habilita apenas dias que não sejam finais de semana e sejam após a data do pedido
+    return !isWeekend && isAfterPedidoDate;
+}
 }
 
