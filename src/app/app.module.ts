@@ -13,6 +13,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 // IMPORTS PARA OS COMPONENTES DO ANGULAR MATERIAL
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './util/CustomMatPaginatorIntl';
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatCheckboxModule} from "@angular/material/checkbox";
@@ -113,7 +115,8 @@ registerLocaleData(localePt, 'pt-BR');
     DatePipe,
     AuthInterceptorProvider,
     provideNativeDateAdapter(),
-    {provide: LOCALE_ID, useValue: 'pt-BR'}
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl},
   ],
   bootstrap: [AppComponent]
 })
