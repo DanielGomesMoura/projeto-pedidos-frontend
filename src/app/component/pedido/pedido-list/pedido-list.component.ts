@@ -5,7 +5,6 @@ import { MatTableDataSource as MatTableDataSource } from '@angular/material/tabl
 import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
-import { CurrencyPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import {animate, state, style, transition, trigger} from '@angular/animations';
@@ -38,18 +37,16 @@ export class PedidoListComponent implements OnInit {
     status: '',
     nomeCliente: ''
   }
-
+  dataSource = new MatTableDataSource<Pedido>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['id', 'cliente', 'data_registro', 'valor_total', 'status', 'acoes'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
-  expandedElement: any | null;
-  dataSource = new MatTableDataSource<Pedido>(this.ELEMENT_DATA);
+  expandedElement: Pedido | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private service: PedidoService,
               private toast: ToastrService,
               private dialog: MatDialog,
-              private currencyPipe: CurrencyPipe,
               private router: Router
              ) { }
 
@@ -73,7 +70,7 @@ export class PedidoListComponent implements OnInit {
    const formatarResposta = resposta.map((pedido: Pedido) =>{
       return{
       ...pedido,
-      valor_total: this.formatarMoeda(pedido.valor_total)
+      valor_total: pedido.valor_total
       };
     });
     
@@ -82,14 +79,6 @@ export class PedidoListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     })
   }
-
-  formatarMoeda(obj: number | string){
-    const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', 'symbol', '1.2-2');
-    const valorCustoComVirgula = formattedValorCusto
-    const valorCustoComEspaco = valorCustoComVirgula ? 
-    valorCustoComVirgula.replace('R$', 'R$ ') : '';
-    return valorCustoComEspaco;
-}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

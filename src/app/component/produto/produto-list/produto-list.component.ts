@@ -5,7 +5,6 @@ import { MatTableDataSource as MatTableDataSource } from '@angular/material/tabl
 import { ToastrService } from 'ngx-toastr';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
-import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-produto-list',
@@ -32,8 +31,7 @@ export class ProdutoListComponent implements OnInit {
 
   constructor(private service: ProdutoService,
               private toast: ToastrService,
-              private dialog: MatDialog,
-              private currencyPipe: CurrencyPipe 
+              private dialog: MatDialog
              ) { }
 
   ngOnInit(): void {
@@ -53,9 +51,9 @@ export class ProdutoListComponent implements OnInit {
       
         return {
           ...produto,
-          valor_custo: this.formatarMoeda(produto.valor_custo),
+          valor_custo: produto.valor_custo,
 
-          valor_venda: this.formatarMoeda(produto.valor_venda)
+          valor_venda: produto.valor_venda
         };
       });
       
@@ -63,14 +61,6 @@ export class ProdutoListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Produto>(formattedData);
       this.dataSource.paginator = this.paginator;
     });
-  }
-
-  formatarMoeda(obj: number | string){
-      const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', 'symbol', '1.2-2');
-      const valorCustoComVirgula = formattedValorCusto
-      const valorCustoComEspaco = valorCustoComVirgula ? 
-      valorCustoComVirgula.replace('R$', 'R$ ') : '';
-      return valorCustoComEspaco;
   }
 
   applyFilter(event: Event) {

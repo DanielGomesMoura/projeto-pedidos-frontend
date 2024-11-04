@@ -1,5 +1,4 @@
 import { MovimentoCaixa } from './../../../models/movimento-caixa';
-import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator as MatPaginator } from '@angular/material/paginator';
@@ -38,8 +37,7 @@ export class MovimentoCaixaListComponent implements OnInit {
 
   constructor(private service: MovimentoCaixaService,
               private toast: ToastrService,
-              private dialog: MatDialog,
-              private currencyPipe: CurrencyPipe 
+              private dialog: MatDialog
              ) { }
 
   ngOnInit(): void {
@@ -59,7 +57,7 @@ export class MovimentoCaixaListComponent implements OnInit {
       
         return {
           ...movimentoCaixa,
-          valor: this.formatarMoeda(movimentoCaixa.valor)
+          valor: movimentoCaixa.valor
         };
       });
       
@@ -67,14 +65,6 @@ export class MovimentoCaixaListComponent implements OnInit {
       this.dataSource = new MatTableDataSource<MovimentoCaixa>(formattedData);
       this.dataSource.paginator = this.paginator;
     });
-  }
-
-  formatarMoeda(obj: number | string){
-      const formattedValorCusto = this.currencyPipe.transform(obj, 'BRL', 'symbol', '1.2-2');
-      const valorCustoComVirgula = formattedValorCusto
-      const valorCustoComEspaco = valorCustoComVirgula ? 
-      valorCustoComVirgula.replace('R$', 'R$ ') : '';
-      return valorCustoComEspaco;
   }
 
   applyFilter(event: Event) {
