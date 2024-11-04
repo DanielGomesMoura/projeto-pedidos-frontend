@@ -1,5 +1,5 @@
 import { Pedido } from '../models/pedido';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_CONFIG } from '../config/api.config';
 import { Observable } from 'rxjs';
@@ -15,8 +15,11 @@ export class PedidoService {
     return this.http.get<Pedido>(`${API_CONFIG.baseurl}/pedidos/${id}`);
   }
 
-  findAll(): Observable<Pedido[]>{
-    return this.http.get<Pedido[]>(`${API_CONFIG.baseurl}/pedidos`);
+  findAll(dataInicio: string, dataFinal: string): Observable<Pedido[]>{
+    const params = new HttpParams()
+      .set('dataInicio', dataInicio)
+      .set('dataFinal', dataFinal);
+    return this.http.get<Pedido[]>(`${API_CONFIG.baseurl}/pedidos`,{params});
   }
 
   create(Pedido: Pedido): Observable<Pedido>{

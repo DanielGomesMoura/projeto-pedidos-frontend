@@ -15,10 +15,15 @@
         text-align: right;
       }
 
-    mat-form-field{
-    width: 100%;
+    .fullWidth{
+      width: 100%;
+  }
+
+  .filter-data{
     margin-top: 1rem;
-    }
+    display: flex;
+    gap: 1rem;
+  }
     
     .create{
         width: 11rem;
@@ -64,3 +69,10 @@
           display: flex;
           /* Exibe o conteúdo em um layout flexível */
         }
+
+        /* Em telas menores, mude para grid */
+@media (max-width: 600px) { /* Ajuste o valor conforme necessário */
+  .filter-data {
+      display: grid;
+  }
+}

@@ -8,7 +8,7 @@ import { PedidoService } from 'src/app/services/pedido.service';
 import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-pedido-list',
@@ -25,9 +25,10 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 export class PedidoListComponent implements OnInit {
 
   ELEMENT_DATA: Pedido[] = []
-
    // Supondo que a data de hoje seja obtida assim
  hoje: string = format(new Date(), 'dd/MM/yyyy');
+ dataInicio = this.hoje; // Armazena a data inicial
+ dataFinal = this.hoje;
 
   pedido: Pedido = {
     id: '',
@@ -47,11 +48,12 @@ export class PedidoListComponent implements OnInit {
   constructor(private service: PedidoService,
               private toast: ToastrService,
               private dialog: MatDialog,
-              private router: Router
+              private router: Router,
+              private datePipe: DatePipe
              ) { }
 
   ngOnInit(): void {
-    this.findAll();
+    this.findAll(this.dataInicio,this.dataFinal);
   }
 
   findById(): void{
@@ -64,8 +66,9 @@ export class PedidoListComponent implements OnInit {
   this.router.navigate(['/pagamentos', elementId]);
 }
 
-  findAll(){
-    this.service.findAll().subscribe(resposta => {
+  findAll(dataInicio: string, dataFinal: string){
+    dataInicio = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
+    this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
     
    const formatarResposta = resposta.map((pedido: Pedido) =>{
       return{
@@ -91,4 +94,12 @@ export class PedidoListComponent implements OnInit {
     return this.hoje !== dataRegistro;
   }
 
+    
+  dateFilter(date) {
+    if (!date) {
+       return true; // Permite que todas as datas sejam válidas até que uma seja selecionada
+   }
+   const day = date.getDay();
+   return day != 0 && day != 6;
+}
 }
