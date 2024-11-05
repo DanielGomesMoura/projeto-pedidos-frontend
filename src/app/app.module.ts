@@ -34,6 +34,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import {registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import {MatSortModule} from '@angular/material/sort';
 
 //Componentes do Projeto
 import { NavComponent } from './component/nav/nav.component';
@@ -103,6 +104,7 @@ registerLocaleData(localePt, 'pt-BR');
     MatListModule,
     MatCardModule,
     MatDialogModule,
+    MatSortModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       closeButton: true,

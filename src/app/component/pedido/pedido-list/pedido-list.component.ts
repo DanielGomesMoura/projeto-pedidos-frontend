@@ -9,11 +9,13 @@ import { Router } from '@angular/router';
 import { format } from 'date-fns';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { DatePipe } from '@angular/common';
+import {MatSort, Sort} from '@angular/material/sort';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-pedido-list',
   templateUrl: './pedido-list.component.html',
-  styleUrl: './pedido-list.component.css',
+  styleUrls: ['./pedido-list.component.css'],
   animations: [
     trigger('detailExpand', [
       state('collapsed,void', style({height: '0px', minHeight: '0'})),
@@ -27,8 +29,9 @@ export class PedidoListComponent implements OnInit {
   ELEMENT_DATA: Pedido[] = []
    // Supondo que a data de hoje seja obtida assim
  hoje: string = format(new Date(), 'dd/MM/yyyy');
- dataInicio = this.hoje; // Armazena a data inicial
- dataFinal = this.hoje;
+ dataInicio = this.hoje;
+ dataFinal  = this.hoje;
+ 
 
   pedido: Pedido = {
     id: '',
@@ -44,13 +47,28 @@ export class PedidoListComponent implements OnInit {
   expandedElement: Pedido | null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+   ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
 
   constructor(private service: PedidoService,
               private toast: ToastrService,
               private dialog: MatDialog,
               private router: Router,
-              private datePipe: DatePipe
+              private datePipe: DatePipe,
+              private _liveAnnouncer: LiveAnnouncer
              ) { }
+
+ announceSortChange(sortState: Sort) {
+  if (sortState.direction) {
+    this._liveAnnouncer.announce(`Sorted ${sortState.direction === 'asc' ? 'ascending' : 'descending'}`);
+  } else {
+    this._liveAnnouncer.announce('Sorting cleared');
+  }
+}
 
   ngOnInit(): void {
     this.findAll(this.dataInicio,this.dataFinal);
@@ -67,7 +85,6 @@ export class PedidoListComponent implements OnInit {
 }
 
   findAll(dataInicio: string, dataFinal: string){
-    dataInicio = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
     this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
     
    const formatarResposta = resposta.map((pedido: Pedido) =>{
@@ -78,8 +95,7 @@ export class PedidoListComponent implements OnInit {
     });
     
     this.ELEMENT_DATA = formatarResposta 
-    this.dataSource = new MatTableDataSource<Pedido>(formatarResposta);
-    this.dataSource.paginator = this.paginator;
+    this.dataSource.data = this.ELEMENT_DATA;
     })
   }
 
@@ -95,7 +111,7 @@ export class PedidoListComponent implements OnInit {
   }
 
     
-  dateFilter(date) {
+  dateFilter(date: Date | null): boolean {
     if (!date) {
        return true; // Permite que todas as datas sejam válidas até que uma seja selecionada
    }
