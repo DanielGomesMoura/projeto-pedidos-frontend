@@ -3,7 +3,7 @@
     <div id="form" class="form mat-elevation-z8">
         <h1>DAN'S BRIGADEIRO</h1>
         <h3>RANKING DA SEMANA</h3>
-        <div class="mat-elevation-z3" style="border-radius: 1rem;">
+        <div class="table-rank mat-elevation-z3" style="border-radius: 1rem;">
             <table mat-table [dataSource]="dataSource">
 
                 <ng-container matColumnDef="rowId">
@@ -24,5 +24,7 @@
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
+            <mat-paginator [pageSizeOptions]="[8]" showFirstLastButtons aria-label="Select page of periodic elements">
+            </mat-paginator>
     </div>
 </div>

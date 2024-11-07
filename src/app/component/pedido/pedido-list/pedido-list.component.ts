@@ -28,7 +28,7 @@ export class PedidoListComponent implements OnInit {
 
   ELEMENT_DATA: Pedido[] = []
    // Supondo que a data de hoje seja obtida assim
- hoje: string = format(new Date(), 'dd/MM/yyyy');
+ hoje: string = new Date().toString();
  dataInicio = this.hoje;
  dataFinal  = this.hoje;
  
@@ -85,7 +85,9 @@ export class PedidoListComponent implements OnInit {
 }
 
   findAll(dataInicio: string, dataFinal: string){
-    this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
+     dataInicio = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
+     dataFinal = this.datePipe.transform(dataFinal, 'dd/MM/yyyy');
+     this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
     
    const formatarResposta = resposta.map((pedido: Pedido) =>{
       return{

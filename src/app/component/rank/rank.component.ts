@@ -1,6 +1,7 @@
 import { WebSocketService } from './../../services/web-socket.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Rank } from 'src/app/models/rank';
@@ -24,6 +25,12 @@ export class RankComponent implements OnInit {
   displayedColumns: string[] = ['rowId','nome', 'quantidade'];
 dataSource = new MatTableDataSource<Rank>(this.ELEMENT_DATA);
 
+ @ViewChild(MatPaginator) paginator: MatPaginator;
+
+ ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
+
   constructor(private service: RankSerivice,
               private toast: ToastrService,
               private dialog: MatDialog,
@@ -43,7 +50,7 @@ dataSource = new MatTableDataSource<Rank>(this.ELEMENT_DATA);
    findAll(){
     this.service.Rank().subscribe(resposta => {
     this.ELEMENT_DATA = resposta 
-    this.dataSource = new MatTableDataSource<Rank>(resposta);
+    this.dataSource.data = this.ELEMENT_DATA;
     })
   }
 }
