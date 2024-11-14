@@ -6,7 +6,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { Router } from '@angular/router';
-import { format } from 'date-fns';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { DatePipe } from '@angular/common';
 import {MatSort, Sort} from '@angular/material/sort';
@@ -36,7 +35,7 @@ export class PedidoListComponent implements OnInit {
   pedido: Pedido = {
     id: '',
     data_registro: '',
-    valor_total: '',
+    valor_total: 0,
     cliente_fk: null,
     status: '',
     nomeCliente: ''
@@ -120,4 +119,16 @@ export class PedidoListComponent implements OnInit {
    const day = date.getDay();
    return day != 0 && day != 6;
 }
+
+  /** Gets the total cost of all transactions. */ 
+  getTotalCost() {
+    return this.ELEMENT_DATA.map(t => t.valor_total).reduce((acc, value) => acc + value, 0);
+  }
+
+  getTotalItens(): number {
+    return this.ELEMENT_DATA.reduce((total, pedido) => {
+      const itensTotal = pedido.itensPedido.reduce((subtotal, item) => subtotal + item.quantidade, 0);
+      return total + itensTotal;
+    }, 0);
+  }
 }

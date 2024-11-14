@@ -7,6 +7,10 @@
         width: 100%;
     }
 
+    tr.mat-mdc-footer-row td {
+      font-weight: bold;
+    }
+
     .text-center {
         text-align: center;
       }
