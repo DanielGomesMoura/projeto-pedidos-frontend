@@ -122,11 +122,13 @@ export class PedidoListComponent implements OnInit {
 
   /** Gets the total cost of all transactions. */ 
   getTotalCost() {
-    return this.ELEMENT_DATA.map(t => t.valor_total).reduce((acc, value) => acc + value, 0);
+    return this.dataSource.filteredData
+    .map(t => t.valor_total)
+    .reduce((acc, value) => acc + value, 0);
   }
 
   getTotalItens(): number {
-    return this.ELEMENT_DATA.reduce((total, pedido) => {
+    return this.dataSource.filteredData.reduce((total, pedido) => {
       const itensTotal = pedido.itensPedido.reduce((subtotal, item) => subtotal + item.quantidade, 0);
       return total + itensTotal;
     }, 0);
