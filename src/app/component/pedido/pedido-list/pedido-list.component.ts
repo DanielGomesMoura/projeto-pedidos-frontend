@@ -30,7 +30,7 @@ export class PedidoListComponent implements OnInit {
  hoje: string = new Date().toString();
  dataInicio = this.hoje;
  dataFinal  = this.hoje;
- 
+ filterValue =  '';
 
   pedido: Pedido = {
     id: '',
@@ -40,6 +40,7 @@ export class PedidoListComponent implements OnInit {
     status: '',
     nomeCliente: ''
   }
+
   dataSource = new MatTableDataSource<Pedido>(this.ELEMENT_DATA);
   displayedColumns: string[] = ['id', 'cliente', 'data_registro', 'valor_total', 'status', 'acoes'];
   columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
@@ -70,9 +71,32 @@ export class PedidoListComponent implements OnInit {
 }
 
   ngOnInit(): void {
+    this.loadFilters();
     this.findAll(this.dataInicio,this.dataFinal);
   }
 
+  loadFilters(): void {
+    const savedDataInicio = localStorage.getItem('filtroDataInicio');
+    const savedDataFinal = localStorage.getItem('filtroDataFinal');
+
+    this.dataInicio = savedDataInicio ? savedDataInicio : this.hoje;
+    this.dataFinal = savedDataFinal ? savedDataFinal : this.hoje;
+     // Recupera o filtro de nome do localStorage
+    this.filterValue = localStorage.getItem('filtroNome') || '';
+
+     // Aplica o filtro de nome, se houver
+     if (this.filterValue) {
+      this.applyFilterByName(this.filterValue);
+    }
+  }
+
+  saveFilters(): void {
+    localStorage.setItem('filtroDataInicio', this.dataInicio);
+    localStorage.setItem('filtroDataFinal', this.dataFinal);
+    localStorage.setItem('filtroNome', this.filterValue);
+  }
+
+  
   findById(): void{
     this.service.findById(this.pedido.id).subscribe(resposta =>{
       this.pedido = resposta
@@ -84,6 +108,7 @@ export class PedidoListComponent implements OnInit {
 }
 
   findAll(dataInicio: string, dataFinal: string){
+    this.saveFilters();
      dataInicio = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
      dataFinal = this.datePipe.transform(dataFinal, 'dd/MM/yyyy');
      this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
@@ -101,8 +126,18 @@ export class PedidoListComponent implements OnInit {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    localStorage.setItem('filtroNome', this.filterValue);
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = this.filterValue.trim().toLowerCase();
+  }
+
+   // Método para aplicar o filtro de nome
+   applyFilterByName(filterValue: string): void {
+    this.filterValue = filterValue.trim().toLowerCase();
+    this.dataSource.filter = this.filterValue;
+
+    // Salva o filtro no localStorage
+    localStorage.setItem('filtroNome', this.filterValue);
   }
 
  // Método para verificar se o botão deve ser desabilitado
