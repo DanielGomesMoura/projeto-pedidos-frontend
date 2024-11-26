@@ -27,9 +27,8 @@ export class PedidoListComponent implements OnInit {
 
   ELEMENT_DATA: Pedido[] = []
    // Supondo que a data de hoje seja obtida assim
- hoje: string = new Date().toString();
- dataInicio = this.hoje;
- dataFinal  = this.hoje;
+ dataInicio = null;
+ dataFinal  = null;
  filterValue =  '';
 
   pedido: Pedido = {
@@ -79,8 +78,8 @@ export class PedidoListComponent implements OnInit {
     const savedDataInicio = localStorage.getItem('filtroDataInicio');
     const savedDataFinal = localStorage.getItem('filtroDataFinal');
 
-    this.dataInicio = savedDataInicio ? savedDataInicio : this.hoje;
-    this.dataFinal = savedDataFinal ? savedDataFinal : this.hoje;
+    this.dataInicio = savedDataInicio ? this.parseDate(savedDataInicio) : new Date();
+    this.dataFinal = savedDataFinal ? this.parseDate(savedDataFinal) : new Date();
      // Recupera o filtro de nome do localStorage
     this.filterValue = localStorage.getItem('filtroNome') || '';
 
@@ -90,9 +89,22 @@ export class PedidoListComponent implements OnInit {
     }
   }
 
+  private parseDate(dateString: string): Date {
+    const [day, month, year] = dateString.split('/').map(Number);
+    return new Date(year, month - 1, day); // Mês em `Date` começa em 0
+  }
+
   saveFilters(): void {
-    localStorage.setItem('filtroDataInicio', this.dataInicio);
-    localStorage.setItem('filtroDataFinal', this.dataFinal);
+     // Converte as datas para string no formato ISO antes de salvar
+     const formattedDataInicio = this.datePipe.transform(this.dataInicio, 'dd/MM/yyyy');
+     const formattedDataFinal = this.datePipe.transform(this.dataFinal, 'dd/MM/yyyy');   
+
+  if (formattedDataInicio) {
+    localStorage.setItem('filtroDataInicio', formattedDataInicio);
+  }
+  if (formattedDataFinal) {
+    localStorage.setItem('filtroDataFinal', formattedDataFinal);
+  }
     localStorage.setItem('filtroNome', this.filterValue);
   }
 
@@ -107,11 +119,11 @@ export class PedidoListComponent implements OnInit {
   this.router.navigate(['/pagamentos', elementId]);
 }
 
-  findAll(dataInicio: string, dataFinal: string){
+  findAll(dataInicio: Date, dataFinal: Date){
     this.saveFilters();
-     dataInicio = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
-     dataFinal = this.datePipe.transform(dataFinal, 'dd/MM/yyyy');
-     this.service.findAll(dataInicio,dataFinal).subscribe(resposta => {
+     var datafiltroInicial = this.datePipe.transform(dataInicio, 'dd/MM/yyyy');
+     var datafiltroFinal = this.datePipe.transform(dataFinal, 'dd/MM/yyyy');
+     this.service.findAll(datafiltroInicial,datafiltroFinal).subscribe(resposta => {
     
    const formatarResposta = resposta.map((pedido: Pedido) =>{
       return{
@@ -143,7 +155,7 @@ export class PedidoListComponent implements OnInit {
  // Método para verificar se o botão deve ser desabilitado
   isButtonDisabled(dataRegistro: string): boolean {
     // Comparação para desabilitar o botão se a data de hoje for diferente de dataRegistro
-    return this.hoje !== dataRegistro;
+    return Date() !== dataRegistro;
   }
 
     

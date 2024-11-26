@@ -7,14 +7,14 @@
     <div class="filter-data">
     <mat-form-field color="accent">
       <mat-label>Data Inicio</mat-label>
-      <input matInput [matDatepicker]="pickerinicio" readonly="true" [(ngModel)]="dataInicio" [matDatepickerFilter]="dateFilter">
+      <input matInput [matDatepicker]="pickerinicio" readonly="true" [(ngModel)]="dataInicio" (dateChange)="saveFilters()" [matDatepickerFilter]="dateFilter">
       <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerinicio"></mat-datepicker-toggle>
     <mat-datepicker #pickerinicio></mat-datepicker>
     </mat-form-field>
     <mat-form-field color="accent">
       <mat-label>Data Final</mat-label>
-      <input matInput [matDatepicker]="pickerfinal" readonly="true" [(ngModel)]="dataFinal" [matDatepickerFilter]="dateFilter">
+      <input matInput [matDatepicker]="pickerfinal" readonly="true" [(ngModel)]="dataFinal" (dateChange)="saveFilters()" [matDatepickerFilter]="dateFilter">
       <mat-hint>DD/MM/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerfinal"></mat-datepicker-toggle>
     <mat-datepicker #pickerfinal></mat-datepicker>
@@ -23,7 +23,7 @@
   </div>   
     <mat-form-field class="fullWidth" >
       <mat-label>Filtrar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+      <input matInput (keyup)="applyFilter($event)" [(ngModel)]="filterValue" (dateChange)="saveFilters()" placeholder="Ex. ium" #input>
     </mat-form-field>
       <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort (matSortChange)="announceSortChange($event)">
