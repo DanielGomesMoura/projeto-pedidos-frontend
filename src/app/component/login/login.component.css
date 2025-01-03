@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    background-image: url('/assets/images/imagem-fundo.svg');
+    background-image: url('/assets/images/login.jpg');
     background-size: cover; /* Ajusta a imagem para cobrir todo o fundo do card */
     background-position: center; /* Centraliza a imagem no card */
     background-repeat: no-repeat; /* Evita que a imagem se repita */
@@ -15,7 +15,7 @@
     padding: 1rem 1rem;
     background: transparent;
     border-radius: 1rem;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px);
 }
 
 h1 {
@@ -23,6 +23,14 @@ h1 {
     text-align: center;
     color: white;
 }
+
+h3 {
+    width: 100%;
+    text-align: center;
+    color: white;
+    opacity: 50%;
+}
+
 
 .full-width {
     width: 100%;
