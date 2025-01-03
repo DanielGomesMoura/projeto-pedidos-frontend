@@ -10,7 +10,7 @@ import { CurrencyPipe } from '@angular/common';
 // PARA TRABALHAR COM FORMULARIOS NO ANGULAR 12
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 //PARA REALIZAR REQUISIÇÕES HTTP
-import {HttpClientModule} from "@angular/common/http";
+import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 // IMPORTS PARA OS COMPONENTES DO ANGULAR MATERIAL
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -60,66 +60,60 @@ import { MovimentoCaixaListComponent } from './component/movimento-caixa/movimen
 
 registerLocaleData(localePt, 'pt-BR');
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    HeaderComponent,
-    HomeComponent,
-    ClienteListComponent,
-    ClienteCreateComponent,
-    ProdutoListComponent,
-    ProdutoCreateComponent,
-    PedidoListComponent,
-    PedidoCreateComponent,
-    PagamentoCreateComponent,
-    LoginComponent,
-    RankComponent,
-    ContaListComponent,
-    ContaCreateComponent,
-    TipoRecebimentoListComponent,
-    TipoRecebimentoCreateComponent,
-    MovimentoCaixaListComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatPaginatorModule,
-    MatSnackBarModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatTableModule,
-    MatRadioModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatIconModule,
-    MatListModule,
-    MatCardModule,
-    MatDialogModule,
-    MatSortModule,
-    ToastrModule.forRoot({
-      timeOut: 4000,
-      closeButton: true,
-      progressBar: true
-    }),
-    NgxMaskModule.forRoot()
-  ],
-  providers: [
-    CurrencyPipe,
-    DatePipe,
-    AuthInterceptorProvider,
-    provideNativeDateAdapter(),
-    {provide: LOCALE_ID, useValue: 'pt-BR'},
-    {provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl},
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavComponent,
+        HeaderComponent,
+        HomeComponent,
+        ClienteListComponent,
+        ClienteCreateComponent,
+        ProdutoListComponent,
+        ProdutoCreateComponent,
+        PedidoListComponent,
+        PedidoCreateComponent,
+        PagamentoCreateComponent,
+        LoginComponent,
+        RankComponent,
+        ContaListComponent,
+        ContaCreateComponent,
+        TipoRecebimentoListComponent,
+        TipoRecebimentoCreateComponent,
+        MovimentoCaixaListComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatPaginatorModule,
+        MatSnackBarModule,
+        MatCheckboxModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatTableModule,
+        MatRadioModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatIconModule,
+        MatListModule,
+        MatCardModule,
+        MatDialogModule,
+        MatSortModule,
+        ToastrModule.forRoot({
+            timeOut: 4000,
+            closeButton: true,
+            progressBar: true
+        }),
+        NgxMaskModule.forRoot()], providers: [
+        CurrencyPipe,
+        DatePipe,
+        AuthInterceptorProvider,
+        provideNativeDateAdapter(),
+        { provide: LOCALE_ID, useValue: 'pt-BR' },
+        { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }
