@@ -1,15 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator as MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource as MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Produto } from 'src/app/models/produto';
 import { ProdutoService } from 'src/app/services/produto.service';
+import { MatFabButton, MatIconButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-produto-list',
-  templateUrl: './produto-list.component.html',
-  styleUrls: ['./produto-list.component.css']
+    selector: 'app-produto-list',
+    templateUrl: './produto-list.component.html',
+    styleUrls: ['./produto-list.component.css'],
+    standalone: true,
+    imports: [MatFabButton, RouterLink, MatIcon, MatFormField, MatLabel, MatInput, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatIconButton, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, CurrencyPipe]
 })
 export class ProdutoListComponent implements OnInit {
 

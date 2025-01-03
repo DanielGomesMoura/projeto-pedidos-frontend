@@ -1,27 +1,70 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator as MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource as MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatFooterRowDef, MatFooterRow } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Pedido } from 'src/app/models/pedido';
 import { PedidoService } from 'src/app/services/pedido.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { DatePipe } from '@angular/common';
-import {MatSort, Sort} from '@angular/material/sort';
+import { DatePipe, NgStyle, NgIf, CurrencyPipe } from '@angular/common';
+import { MatSort, Sort, MatSortHeader } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatFabButton, MatButton, MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel, MatHint, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-pedido-list',
-  templateUrl: './pedido-list.component.html',
-  styleUrls: ['./pedido-list.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed,void', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+    selector: 'app-pedido-list',
+    templateUrl: './pedido-list.component.html',
+    styleUrls: ['./pedido-list.component.css'],
+    animations: [
+        trigger('detailExpand', [
+            state('collapsed,void', style({ height: '0px', minHeight: '0' })),
+            state('expanded', style({ height: '*' })),
+            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+        ]),
+    ],
+    standalone: true,
+    imports: [
+        MatFabButton,
+        RouterLink,
+        MatIcon,
+        MatFormField,
+        MatLabel,
+        MatInput,
+        MatDatepickerInput,
+        FormsModule,
+        MatHint,
+        MatDatepickerToggle,
+        MatSuffix,
+        MatDatepicker,
+        MatButton,
+        MatTable,
+        MatSort,
+        MatColumnDef,
+        MatHeaderCellDef,
+        MatHeaderCell,
+        MatSortHeader,
+        MatCellDef,
+        MatCell,
+        MatFooterCellDef,
+        MatFooterCell,
+        NgStyle,
+        MatIconButton,
+        NgIf,
+        MatHeaderRowDef,
+        MatHeaderRow,
+        MatRowDef,
+        MatRow,
+        MatFooterRowDef,
+        MatFooterRow,
+        MatPaginator,
+        CurrencyPipe,
+    ],
 })
 export class PedidoListComponent implements OnInit {
 

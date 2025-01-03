@@ -1,8 +1,8 @@
 import { ProdutoService } from './../../../services/produto.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormArray, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ClienteService } from 'src/app/services/cliente.service';
@@ -10,11 +10,20 @@ import { Cliente } from 'src/app/models/cliente';
 import { Produto } from 'src/app/models/produto';
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
+import { MatFormField, MatLabel, MatHint, MatSuffix, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-pedido-create',
-  templateUrl: './pedido-create.component.html',
-  styleUrls: ['./pedido-create.component.css']
+    selector: 'app-pedido-create',
+    templateUrl: './pedido-create.component.html',
+    styleUrls: ['./pedido-create.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, NgFor, MatOption, MatIcon, NgIf, MatError, MatButton, RouterLink]
 })
 export class PedidoCreateComponent implements OnInit {
 

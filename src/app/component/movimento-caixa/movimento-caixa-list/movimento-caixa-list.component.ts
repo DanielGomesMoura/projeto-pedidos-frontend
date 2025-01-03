@@ -2,14 +2,22 @@ import { MovimentoCaixa } from './../../../models/movimento-caixa';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator as MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource as MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { MovimentoCaixaService } from 'src/app/services/movimento-caixa.service';
+import { MatFabButton } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { NgStyle, CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-movimento-caixa-list',
-  templateUrl: './movimento-caixa-list.component.html',
-  styleUrls: ['./movimento-caixa-list.component.css']
+    selector: 'app-movimento-caixa-list',
+    templateUrl: './movimento-caixa-list.component.html',
+    styleUrls: ['./movimento-caixa-list.component.css'],
+    standalone: true,
+    imports: [MatFabButton, RouterLink, MatIcon, MatFormField, MatLabel, MatInput, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatFooterCellDef, MatFooterCell, NgStyle, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator, CurrencyPipe]
 })
 export class MovimentoCaixaListComponent implements OnInit {
 

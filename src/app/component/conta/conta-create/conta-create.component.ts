@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContaService } from 'src/app/services/conta.service';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-conta-create',
-  templateUrl: './conta-create.component.html',
-  styleUrls: ['./conta-create.component.css']
+    selector: 'app-conta-create',
+    templateUrl: './conta-create.component.html',
+    styleUrls: ['./conta-create.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatButton, RouterLink]
 })
 export class ContaCreateComponent implements OnInit {
 

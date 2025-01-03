@@ -60,26 +60,7 @@ import { MovimentoCaixaListComponent } from './component/movimento-caixa/movimen
 
 registerLocaleData(localePt, 'pt-BR');
 
-@NgModule({ declarations: [
-        AppComponent,
-        NavComponent,
-        HeaderComponent,
-        HomeComponent,
-        ClienteListComponent,
-        ClienteCreateComponent,
-        ProdutoListComponent,
-        ProdutoCreateComponent,
-        PedidoListComponent,
-        PedidoCreateComponent,
-        PagamentoCreateComponent,
-        LoginComponent,
-        RankComponent,
-        ContaListComponent,
-        ContaCreateComponent,
-        TipoRecebimentoListComponent,
-        TipoRecebimentoCreateComponent,
-        MovimentoCaixaListComponent
-    ],
+@NgModule({ declarations: [AppComponent],
     bootstrap: [AppComponent], imports: [BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
@@ -107,7 +88,23 @@ registerLocaleData(localePt, 'pt-BR');
             closeButton: true,
             progressBar: true
         }),
-        NgxMaskModule.forRoot()], providers: [
+        NgxMaskModule.forRoot(), NavComponent,
+        HeaderComponent,
+        HomeComponent,
+        ClienteListComponent,
+        ClienteCreateComponent,
+        ProdutoListComponent,
+        ProdutoCreateComponent,
+        PedidoListComponent,
+        PedidoCreateComponent,
+        PagamentoCreateComponent,
+        LoginComponent,
+        RankComponent,
+        ContaListComponent,
+        ContaCreateComponent,
+        TipoRecebimentoListComponent,
+        TipoRecebimentoCreateComponent,
+        MovimentoCaixaListComponent], providers: [
         CurrencyPipe,
         DatePipe,
         AuthInterceptorProvider,

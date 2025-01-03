@@ -1,15 +1,22 @@
 import { Conta } from './../../models/conta';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContaService } from 'src/app/services/conta.service';
 import { TipoRecebimentoService } from 'src/app/services/tipo-recebimento.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatSelect } from '@angular/material/select';
+import { NgFor } from '@angular/common';
+import { MatOption } from '@angular/material/core';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-tipo-recebimento-create',
-  templateUrl: './tipo-recebimento-create.component.html',
-  styleUrls: ['./tipo-recebimento-create.component.css']
+    selector: 'app-tipo-recebimento-create',
+    templateUrl: './tipo-recebimento-create.component.html',
+    styleUrls: ['./tipo-recebimento-create.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatSelect, NgFor, MatOption, MatButton, RouterLink]
 })
 export class TipoRecebimentoCreateComponent implements OnInit {
 

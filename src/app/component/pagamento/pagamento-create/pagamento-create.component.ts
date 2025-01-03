@@ -1,19 +1,28 @@
 import { TipoRecebimentoService } from 'src/app/services/tipo-recebimento.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Tipo_Recebimento } from 'src/app/models/tipo-recebimento';
 import { PagamentoService } from 'src/app/services/pagamento.service';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { DatePipe } from '@angular/common';
 import { parse } from 'date-fns';
+import { MatFormField, MatLabel, MatHint, MatSuffix } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatIcon } from '@angular/material/icon';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-pagamento-create',
-  templateUrl: './pagamento-create.component.html',
-  styleUrls: ['./pagamento-create.component.css']
+    selector: 'app-pagamento-create',
+    templateUrl: './pagamento-create.component.html',
+    styleUrls: ['./pagamento-create.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, NgFor, MatOption, MatIcon, MatButton, RouterLink]
 })
 export class PagamentoCreateComponent implements OnInit {
 

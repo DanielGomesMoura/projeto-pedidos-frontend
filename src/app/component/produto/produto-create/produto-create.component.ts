@@ -1,14 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProdutoService } from 'src/app/services/produto.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgIf } from '@angular/common';
+import { MatFormField, MatLabel, MatSuffix, MatError } from '@angular/material/form-field';
+import { MatInput } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatButton } from '@angular/material/button';
 
 @Component({
-  selector: 'app-produto-create',
-  templateUrl: './produto-create.component.html',
-  styleUrls: ['./produto-create.component.css']
+    selector: 'app-produto-create',
+    templateUrl: './produto-create.component.html',
+    styleUrls: ['./produto-create.component.css'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatIcon, MatSuffix, MatSelect, MatOption, NgIf, MatError, MatButton, RouterLink]
 })
 export class ProdutoCreateComponent implements OnInit {
 

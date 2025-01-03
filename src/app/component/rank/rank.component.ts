@@ -2,15 +2,17 @@ import { WebSocketService } from './../../services/web-socket.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource as MatTableDataSource, MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { Rank } from 'src/app/models/rank';
 import { RankSerivice } from 'src/app/services/rank.service';
 
 @Component({
-  selector: 'app-rank',
-  templateUrl: './rank.component.html',
-  styleUrls: ['./rank.component.css']
+    selector: 'app-rank',
+    templateUrl: './rank.component.html',
+    styleUrls: ['./rank.component.css'],
+    standalone: true,
+    imports: [MatTable, MatColumnDef, MatHeaderCellDef, MatHeaderCell, MatCellDef, MatCell, MatHeaderRowDef, MatHeaderRow, MatRowDef, MatRow, MatPaginator]
 })
 export class RankComponent implements OnInit {
 
