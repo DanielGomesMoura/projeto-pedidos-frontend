@@ -10,7 +10,6 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { CustomMatPaginatorIntl } from './app/util/CustomMatPaginatorIntl';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
-import { AppRoutingModule } from './app/app-routing.module';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,6 +33,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app/app.component';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { provideRouter } from '@angular/router';
+import { APP_ROUTES } from './app/app.routes';
 
 // Registrando o locale 'pt-BR'
 registerLocaleData(localePt, 'pt-BR');
@@ -44,11 +45,12 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        importProvidersFrom(BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatPaginatorModule, MatSnackBarModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatButtonModule, MatSelectModule, MatTableModule, MatRadioModule, MatInputModule, MatDatepickerModule, MatIconModule, MatListModule, MatCardModule, MatDialogModule, MatSortModule, ToastrModule.forRoot({
+        importProvidersFrom(BrowserModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatPaginatorModule, MatSnackBarModule, MatCheckboxModule, MatToolbarModule, MatSidenavModule, MatButtonModule, MatSelectModule, MatTableModule, MatRadioModule, MatInputModule, MatDatepickerModule, MatIconModule, MatListModule, MatCardModule, MatDialogModule, MatSortModule, ToastrModule.forRoot({
             timeOut: 4000,
             closeButton: true,
             progressBar: true
         }), NgxMaskModule.forRoot()),
+        provideRouter(APP_ROUTES),
         CurrencyPipe,
         DatePipe,
         AuthInterceptorProvider,

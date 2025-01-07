@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { NavComponent } from './component/nav/nav.component';
 import { HomeComponent } from './component/home/home.component';
 import { ClienteListComponent } from './component/cliente/cliente-list/cliente-list.component';
@@ -19,7 +19,7 @@ import { TipoRecebimentoCreateComponent } from './component/tipo-recebimento-cre
 import { MovimentoCaixaListComponent } from './component/movimento-caixa/movimento-caixa-list/movimento-caixa-list.component';
 
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
    {path: 'rank', component: RankComponent},
    {path: 'login', component: LoginComponent},
    {
@@ -53,8 +53,3 @@ const routes: Routes = [
   } 
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }
