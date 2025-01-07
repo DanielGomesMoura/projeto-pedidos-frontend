@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { NavComponent } from './component/nav/nav.component';
 import { HomeComponent } from './component/home/home.component';
