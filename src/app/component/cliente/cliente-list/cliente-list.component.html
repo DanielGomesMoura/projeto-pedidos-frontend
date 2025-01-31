@@ -33,6 +33,9 @@
                 <button [routerLink]="['update', element.id]"  color="primary" mat-icon-button>
                   <mat-icon class="edit">edit</mat-icon>
               </button>
+              <button (click)="delete(element)" color="warn" mat-icon-button>
+                <mat-icon class="delete">delete</mat-icon>
+              </button>
               </div>
              </td>
             </ng-container>

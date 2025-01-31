@@ -10,7 +10,8 @@ import { RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-//import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponentComponent } from '../../confirm-dialog-component/confirm-dialog-component.component';
+
 @Component({
     selector: 'app-cliente-list',
     templateUrl: './cliente-list.component.html',
@@ -59,5 +60,27 @@ export class ClienteListComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  delete(cliente: Cliente): void{
+    const dialogRef = this.dialog.open(ConfirmDialogComponentComponent, {
+    data: "Tem certeza que deseja remover esse Cliente?",
+    });
+    dialogRef.afterClosed().subscribe( (resposta: boolean)=>{
+      if(resposta){
+        this.service.delete(cliente.id).subscribe(() =>{
+          this.toast.success('Cliente Deletado com sucesso','Delete');
+          this.findAll();
+        },ex => {
+          if(ex.error.errors){
+            ex.error.errors.forEach(element => {
+              this.toast.error(element.message);
+            });
+          }else{
+            this.toast.error(ex.error.message);
+          }
+        })
+      }
+    })
   }
 }
