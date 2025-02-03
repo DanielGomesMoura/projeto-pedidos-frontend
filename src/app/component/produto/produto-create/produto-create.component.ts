@@ -110,7 +110,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.update(formValue).subscribe(() => {
-      this.toast.success('Produto atualizado com sucesso','Update');
+      this.toast.success('Produto atualizado com sucesso','ATUALIZADO');
       this.router.navigate(['produtos']);
     },ex => {
       if(ex.error.errors){
@@ -131,7 +131,7 @@ const valorNumerico = valor.replace(/\./g, '').replace(',', '.');
     formValue.descricao = formValue.descricao.toUpperCase();
 
     this.service.create(formValue).subscribe(resposta => {
-      this.toast.success('Produto cadastrado com sucesso');
+      this.toast.success('Produto cadastrado com sucesso','CADASTRADO');
       this.router.navigate(['produtos']);
     },ex => {
       if(ex.error.errors){

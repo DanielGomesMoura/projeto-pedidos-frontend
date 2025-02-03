@@ -19,7 +19,7 @@
         text-align: right;
       }
 
-    .fullWidth{
+    .filter{
       width: 100%;
   }
 
@@ -74,10 +74,20 @@
           display: flex;
           /* Exibe o conteúdo em um layout flexível */
         }
+        .button-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+      }
 
         /* Em telas menores, mude para grid */
 @media (max-width: 600px) { /* Ajuste o valor conforme necessário */
   .filter-data {
       display: grid;
   }
+
+  .filter{
+  margin-top: 1rem;
+}
+
 }

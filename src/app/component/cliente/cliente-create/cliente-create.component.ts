@@ -66,7 +66,7 @@ export class ClienteCreateComponent implements OnInit {
     formValue.nome = formValue.nome.toUpperCase();
 
     this.service.update(this.clienteForm.value).subscribe(() => {
-      this.toast.success('Cliente atualizado com sucesso','Update');
+      this.toast.success('Cliente atualizado com sucesso','ATUALIZADO');
       this.router.navigate(['clientes']);
     },ex => {
       if(ex.error.errors){
@@ -84,8 +84,8 @@ export class ClienteCreateComponent implements OnInit {
 
     formValue.nome = formValue.nome.toUpperCase();
     
-    this.service.create(this.clienteForm.value).subscribe(resposta => {
-      this.toast.success('Cliente cadastrado com sucesso');
+    this.service.create(this.clienteForm.value).subscribe(() => {
+      this.toast.success('Cliente cadastrado com sucesso','CADASTRADO');
       this.router.navigate(['clientes']);
     },ex => {
       if(ex.error.errors){

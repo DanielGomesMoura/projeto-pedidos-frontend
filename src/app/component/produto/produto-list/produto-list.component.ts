@@ -11,6 +11,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { CurrencyPipe } from '@angular/common';
+import { ConfirmDialogComponentComponent } from '../../confirm-dialog-component/confirm-dialog-component.component';
 
 @Component({
     selector: 'app-produto-list',
@@ -75,4 +76,26 @@ export class ProdutoListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  delete(produto: Produto): void{
+      const dialogRef = this.dialog.open(ConfirmDialogComponentComponent, {
+      data: "Tem certeza que deseja remover esse Produto?",
+      });
+      dialogRef.afterClosed().subscribe( (resposta: boolean)=>{
+        if(resposta){
+          this.service.delete(produto.id).subscribe(() =>{
+            this.toast.success('Produto Deletado com sucesso','REMOVIDO')
+            this.findAll();
+          },ex => {
+            if(ex.error.errors){
+              ex.error.errors.forEach(element => {
+                this.toast.error(element.message);
+              });
+            }else{
+              this.toast.error(ex.error.message);
+            }
+          })
+        }
+      })
+    }
 }

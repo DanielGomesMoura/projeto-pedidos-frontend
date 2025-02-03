@@ -16,14 +16,14 @@ import { MatDatepickerInput, MatDatepickerToggle, MatDatepicker } from '@angular
 import { MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { MatIcon } from '@angular/material/icon';
-import { MatButton } from '@angular/material/button';
+import { MatIconButton,MatButton } from '@angular/material/button';
 
 @Component({
     selector: 'app-pedido-create',
     templateUrl: './pedido-create.component.html',
     styleUrls: ['./pedido-create.component.css'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, NgFor, MatOption, MatIcon, NgIf, MatError, MatButton, RouterLink]
+    imports: [FormsModule, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatDatepickerInput, MatHint, MatDatepickerToggle, MatSuffix, MatDatepicker, MatSelect, NgFor, MatOption, MatButton, MatIcon, NgIf, MatError, MatIconButton, RouterLink]
 })
 export class PedidoCreateComponent implements OnInit {
 
@@ -49,7 +49,7 @@ export class PedidoCreateComponent implements OnInit {
       id:            new FormControl(null),
       cliente_fk:    new FormControl(null,Validators.required),
       valor_total:   new FormControl(null, Validators.required),
-      data_registro: new FormControl(dataAtual, Validators.required),//new FormControl(null, Validators.required), // Inicialmente desabilitado
+      produto:       new FormControl(null, Validators.required),
       itensPedido:   new FormArray([])
     });
 
@@ -252,7 +252,6 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
     }); 
   }
 
-  
   dateFilter(date) {
      if (!date) {
         return true; // Permite que todas as datas sejam válidas até que uma seja selecionada
@@ -260,4 +259,16 @@ if (formValue.itensPedido && Array.isArray(formValue.itensPedido)) {
     const day = date.getDay();
     return day != 0 && day != 6;
 }
+
+delete(index:number): void{
+   // Remova o item com base no índice
+   this.itensPedido.removeAt(index);
+   (index);
+    
+    // Verifique se todos os itens foram removidos
+    if (this.itensPedido.length === 0) {
+        this.pedidoForm.get('valor_total').setValue(''); // Define valor_total como vazio
+        this.pedidoForm.get('produto').setValue(null);
+    }
+  }
 }

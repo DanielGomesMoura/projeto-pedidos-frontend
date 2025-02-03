@@ -1,6 +1,6 @@
 .container {
     height: 100%;
-    background-image: url('/assets/images/login.jpg');
+    background-image: url('/assets/images/fundologin.jpg');
     background-size: cover; /* Ajusta a imagem para cobrir todo o fundo do card */
     background-position: center; /* Centraliza a imagem no card */
     background-repeat: no-repeat; /* Evita que a imagem se repita */
